@@ -63,7 +63,15 @@ class Invoice
         $sqlQuery = "SELECT max(invoice_id) as maxid FROM " . $this->invoiceOrderTable . "
         WHERE datatype='" . $type . "'";
         $nextsql = current($this->getData($sqlQuery));
-        $nextid = (int)$nextsql['maxid'] + 1;
+       
+        $curid = (int)$nextsql['maxid'];
+        if($curid == 0)
+        {
+            $curid = 19997;
+        }
+
+        $nextid = $curid + 1;
+
         return $nextid;
     }
 

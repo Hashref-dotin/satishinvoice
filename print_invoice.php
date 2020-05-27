@@ -9,18 +9,30 @@ if (!empty($_GET['invoice_id']) && $_GET['invoice_id']) {
 }
 $invoiceDate = $invoiceValues['order_date'];
 
+function possiblelines($originalContent)
+{
+$charWidth = 6;
+$divWidth = 376;
+$originalContent = trim($originalContent);
+$wrappedContent = wordwrap($originalContent, ($divWidth / $charWidth), "\r\n");
+$explodedLines = explode("\r\n", $wrappedContent); 
+return count($explodedLines);
+}
+
+
 $output = '<html>
 <head>
 	<style>
 		/** Define the margins of your page **/
 		@page {
-			margin-top: 150px;
+			margin-top: 170px;
 			page-break-after: always;
+			margin-bottom:40px;
 		}
 
 		header {
 			position: fixed;
-			top: -95px;
+			top: -110px;
 			height: 100px;
 			left: 0cm;
 			right: 0cm;
@@ -32,7 +44,7 @@ $output = '<html>
 
 		footer {
 			position: fixed;
-			bottom: -55px;
+			bottom: -52px;
 			height: 100px;
 			width: 100%;
 		}
@@ -44,11 +56,12 @@ $output = '<html>
 		table.border{
 			border: 0.5px solid black;
 		}
-		table.border td{
-			border: 0.5px solid black;
+		table.border th{
+			border-right: 0.5px solid black;
 		}
 		table.border th{
 			border: 0.5px solid black;
+			font-weight:normal;
 		}
 		p {
 			margin: 0;
@@ -60,7 +73,7 @@ $output = '<html>
 			word-break:break-all;
 		}
 
-		.page_break { page-break-before: always; }
+		.page_break { page-break-before: always; margin-top:60px; }
 
 	</style>
 </head>
@@ -135,120 +148,110 @@ $output .= '</td>
 			</tr>
 			</table>
 
-			<table style="width:100%;border: 0.5px solid black;" cellpadding="4" cellspacing="0" align="center">
-			<tr>
-				<th align="center" width="5%" style="border: 0.5px solid black;">SL</th>
-				<th align="center" width="40%" style="border: 0.5px solid black;">Description</th>
-				<th align="center" width="10%" style="border: 0.5px solid black;">HSN/SAC</th>
-				<th align="center" width="8%" style="border: 0.5px solid black;">QTY</th>
-				<th align="center" width="17%" style="border: 0.5px solid black;">Unit Price<br/> INR</th>';
-if ($istaxisapplicable) {
-    $output .= '<th align="center" width="6%" style="border: 0.5px solid black;">Tax<br/>%</th>';
-}
-
-$output .= '<th align="center" width="15%" style="border: 0.5px solid black;">Gross Price<br/>INR</th></tr>';
+			<table style="width:100%;" cellpadding="4" cellspacing="0" align="center" class="border">
+			<tr style="font-weight:bold !important;">
+				<th align="center" width="5%" >SL</th>
+				<th align="center" width="46%" >Description</th>
+				<th align="center" width="10%" >HSN/SAC</th>
+				<th align="center" width="8%" >QTY</th>
+				<th align="center" width="17%" >Unit Price<br/> INR</th>
+				<th align="center" width="15%" >Gross Price<br/>INR</th></tr>';
 $count = 0;
 $sgstavaialbe = 0;
 $cgstavaialbe = 0;
 $igstavaialbe = 0;
+$totaltaxable = 0;
+$dontbreakpage = false;
+	$totallines = 0;
+	$cgst = 0;
+    $sgst = 0;
+    $igst = 0;
 foreach ($invoiceItems as $invoiceItem) {
     $count++;
 
-    $taxtext = '';
-    $cgst = '';
-    $sgst = '';
-    $igst = '';
     $nameshow = '';
-
-    $taxtext = '';
     $quantityGross = $invoiceItem["order_item_price"] * $invoiceItem["order_item_quantity"];
-    $grosstext = '';
+	$grosstext = '';
+	
+	$totallines = $totallines + possiblelines($invoiceItem["item_name"]) + 3;
 
     $single = false;
     if ($invoiceItem["order_item_cgst"] > 0) {
-        $cgst = ($quantityGross * $invoiceItem["order_item_cgst"]) / 100;
-        $taxtext .= '<p>' . currencyformat($invoiceItem["order_item_cgst"], false) . '% </p>';
-        $grosstext .= '<p >' . currencyformat($cgst) . '</p>';
-        $nameshow .= '<p style="text-align:right">CGST</p>';
+		$cgst =  $cgst + ($quantityGross * $invoiceItem["order_item_cgst"]) / 100;
+        $nameshow .= '<p style="text-align:right">CGST &nbsp;&nbsp;&nbsp;&nbsp;'.currencyformat($invoiceItem["order_item_cgst"], false) . '% </p>';
         $cgstavaialbe = 1;
-        $single = true;
     }
     if ($invoiceItem["order_item_sgst"] > 0) {
-        $sgst = ($quantityGross * $invoiceItem["order_item_sgst"]) / 100;
-        $taxtext .= '<p>' . currencyformat($invoiceItem["order_item_sgst"], false) . '% </p>';
-        $grosstext .= '<p>' . currencyformat($sgst) . '</p>';
-        $nameshow .= '<p style="text-align:right">SGST</p>';
+		$sgst = $sgst + ($quantityGross * $invoiceItem["order_item_sgst"]) / 100;
+        $nameshow .= '<p style="text-align:right">SGST &nbsp;&nbsp;&nbsp;&nbsp;'.currencyformat($invoiceItem["order_item_sgst"], false) . '% </p>';
         $sgstavaialbe = 1;
-        $single = true;
     }
     if ($invoiceItem["order_item_igst"] > 0) {
-        $igst = ($quantityGross * $invoiceItem["order_item_igst"]) / 100;
-        $taxtext .= '<p>' . currencyformat($invoiceItem["order_item_igst"], false) . '% </p>';
-        $grosstext .= '<p>' . currencyformat($igst) . '</p>';
-        $nameshow .= '<p style="text-align:right;width:100%">IGST</p>';
+		$igst = $igst + ($quantityGross * $invoiceItem["order_item_igst"]) / 100;
+		$taxtext .= '<p>'.currencyformat($igst).'</p>';
+		$nameshow .= '<p style="text-align:right">IGST &nbsp;&nbsp;&nbsp;&nbsp;'.currencyformat($invoiceItem["order_item_igst"], false) . '% </p>';
         $igstavaialbe = 1;
-        $single = true;
     }
-    $dontbreakpage = false;
+	
+	$totaltaxable = $totaltaxable + $quantityGross;
 
-    if ($count > 6 && $single) {
+    if ($count > 8 && !$dontbreakpage) {
         $output .= '<div class="page_break"></div>';
-        $output .= '</table><table style="width:100%;border: 0.5px solid black;" cellpadding="4" cellspacing="0" align="center">';
+        $output .= '</table><table style="width:100%;" class="border" cellpadding="4" cellspacing="0" align="center">';
         $dontbreakpage = true;
-
-    }
-	$addbreaks = '';
-	if (!$istaxisapplicable) {
-		$addbreaks = '<br/><br/>';
 	}
+	
     $output .= '<tr>
-					<td valign="top" algin="center" rowspan="2" style="border: 0.5px solid black;text-align:center">' . $count . '</td>
-					<td valign="top">' . $invoiceItem["item_name"].$addbreaks . '</td>
-					<td valign="top" rowspan="2" algin="center" style="border: 0.5px solid black;text-align:center">' . $invoiceItem["item_code"] . '</td>
-					<td valign="top" rowspan="2"  style="border: 0.5px solid black;text-align:center">' . (int) $invoiceItem["order_item_quantity"] . '</td>
-					<td valign="top" style="border: 0.5px solid black;text-align:center" rowspan="2">' . currencyformat($invoiceItem["order_item_price"]) . '</td>';
-    $grossspan = "'";
-    if ($istaxisapplicable) {
-        $output .= '<td valign="bottom" style="border: 0.5px solid black;text-align:center" rowspan="2">' . $taxtext . '</td>';
-    }
-
-    $output .= '<td valign="top" style="text-align:right">' . currencyformat($quantityGross) . '</td>
+					<td valign="top" width="5%" algin="center" style="border-right: 0.5px solid #000;">' . $count . '</td>
+					<td valign="top" width="46%" style="border-right: 0.5px solid #000;">' . trim($invoiceItem["item_name"]) . '<br/><br/><br/>' . '</td>
+					<td valign="top" width="10%" style="text-align:center;border-right: 0.5px solid #000;">' . $invoiceItem["item_code"] . '</td>
+					<td valign="top" width="8%" align="center" style="border-right: 0.5px solid #000;">' . (int) $invoiceItem["order_item_quantity"] . '</td>
+					<td valign="top" width="17%" align="center" style="border-right: 0.5px solid #000;">' . currencyformat($invoiceItem["order_item_price"]) . '</td>
+					<td valign="top" width="15%" style="text-align:right;border-right: 0.5px solid #000;">' . currencyformat($quantityGross) . '</td>
 				</tr>';
-    $output .= '<tr>
-					<td valign="bottom" style="border-bottom: 0.5px solid black;">' . $nameshow . '</td>
-					<td style="border-bottom: 0.5px solid black;text-align:right" valign="bottom">' . $grosstext . '</td>
-				</tr>';
-
 }
-$totalspan = '6';
-$wordsspan = '7';
-if (!$istaxisapplicable) {
-    $totalspan = '5';
-    $wordsspan = '6';
+
+$totaltax = $cgst + $sgst + $igst;
+$totalpayable = $totaltaxable + $totaltax;
+
+
+$taxtext = '';
+if ($cgstavaialbe) {
+	$taxtext .= '<p>'.currencyformat($cgst).'</p>';
+}
+if ($sgstavaialbe) {
+	$taxtext .= '<p>'.currencyformat($sgst).'</p>';
+}
+if ($igstavaialbe) {
+	$taxtext .= '<p>'.currencyformat($igst).'</p>';
 }
 
 
 $output .= '<tr>
-				<td align="right" colspan="' . $totalspan . '" style="border-right: 0.5px solid black;"><strong>Total</strong> </td>
-				<td align="right" style="font-weight:bold" style="border: 0.5px solid black;">' . currencyformat($invoiceValues['order_total_after_tax']) . '</td>
-				</tr>
-				<tr>
-					<td align="left" colspan="' . $wordsspan . '"  style="border: 0.5px solid black;"><strong>INR ' . inWords($invoiceValues['order_total_after_tax']) . '<strong></td>
+				<th align="right" colspan="5"><strong>Taxable value</strong></th>
+				<th align="right">' . currencyformat($totaltaxable) . '</th>
+				</tr>';
+				$output .= '<tr>
+				<th align="right" colspan="2">'.$nameshow.'</th>
+				<th align="right" colspan="4" >' .$taxtext . '</th>
+				</tr>';
+				$output .= '<tr>
+				<th align="right" colspan="5"><strong>Total</strong></th>
+				<th align="right"><strong>' . currencyformat($totalpayable) . '</strong></th>
+				</tr>';
+$output .= '<tr>
+<th align="left" colspan="6" ><strong>INR ' . inWords($invoiceValues['order_total_after_tax']) . '<strong></th>
 				</tr>';
 $output .= '
-			</table><br/>';
+			</table>';
 
 if ($istaxisapplicable) {
 
-    if (count($invoiceItems) > 4 && !$dontbreakpage) {
-        $output .= '<div class="page_break"></div>';
-    }
-
-    if (count($invoiceItems) > 4) {
-        $output .= '<div style="height:50px">&nbsp;</div>';
-    }
-    $output .= '<table align="center" cellpadding="5" cellspacing="0" width="100%" class="border">
-			<tr>
+    if ($totallines > 20 && count($invoiceItems) <= 4) {
+		$output .= '<div class="page_break"></div>';
+	}
+    $output .= '<br/><table align="center" cellpadding="5" cellspacing="0" width="100%" class="border">
+			<tr style="font-weight:bold !important;">
 				<th with="20%" rowspan="2" align="center">HSN/SAC</th>
 				<th with="20%" rowspan="2" align="center">Taxable Value</th>';
 
@@ -266,13 +269,13 @@ if ($istaxisapplicable) {
 
     $output .= '<tr>';
     if ($cgstavaialbe) {
-        $output .= '<th style="text-align:center">%</th><th style="text-align:center">Value</th>';
+        $output .= '<th style="text-align:center">%</th><th style="text-align:center;font-weight:bold">Value</th>';
     }
     if ($sgstavaialbe) {
-        $output .= '<th style="text-align:center">%</th><th style="text-align:center">Value</th>';
+        $output .= '<th style="text-align:center">%</th><th style="text-align:center;font-weight:bold">Value</th>';
     }
     if ($igstavaialbe) {
-        $output .= '<th style="text-align:center">%</th><th style="text-align:center">Value</th>';
+        $output .= '<th style="text-align:center">%</th><th style="text-align:center;font-weight:bold">Value</th>';
     }
     $output .= '</tr>';
 
@@ -301,48 +304,49 @@ if ($istaxisapplicable) {
 		$finaltax = $finaltax + $totalTax;
 
         $output .= '<tr>
-				<td with="15%" style="text-align:center">' . $invoiceItem["item_code"] . '</td>
-				<td with="15%" style="text-align:right">' . currencyformat($quantityGross) . '</td>';
+				<th with="15%" style="text-align:center">' . $invoiceItem["item_code"] . '</th>
+				<th with="15%" style="text-align:right">' . currencyformat($quantityGross) . '</th>';
 
         if ($cgstavaialbe) {
-            $output .= '<td style="text-align:center">' . $cgstper . '</td><td style="text-align:right">' . $cgstamt . '</td>';
+            $output .= '<th style="text-align:center">' . $cgstper . '</th><th style="text-align:right">' . $cgstamt . '</th>';
         }
         if ($sgstavaialbe) {
-            $output .= '<td style="text-align:center">' . $sgstper . '</td><td style="text-align:right">' . $sgstamt . '</td>';
+            $output .= '<th style="text-align:center">' . $sgstper . '</th><th style="text-align:right">' . $sgstamt . '</th>';
         }
         if ($igstavaialbe) {
-            $output .= '<td style="text-align:center">' . $igstper . '</td><td style="text-align:right">' . $igstamt . '</td>';
+            $output .= '<th style="text-align:center">' . $igstper . '</th><th style="text-align:right">' . $igstamt . '</th>';
         }
 
 		$fulltaxablevalue = $fulltaxablevalue + $quantityGross;
-		$fullsgst = $fullsgst + $sgstamt;
-		$fullcgst = $fullcgst + $cgstamt;
-		$fulligst = $fulligst + $igstamt;
+		$fullsgst = $fullsgst + $sgsttax;
+		$fullcgst = $fullcgst + $cgsttax;
+		$fulligst = $fulligst + $igsttax;
 
         $output .= '
-				<td with="15%" style="text-align:right">' . currencyformat($totalTax) . '</td>
+				<th with="15%" style="text-align:right">' . currencyformat($totalTax) . '</th>
 			</tr>';
 	}
 	$wordspan = 2;
-	$output .='<tr style="font-weight:bold"><td style="text-align:right">Total</td>
-	<td with="15%" style="text-align:right">' . currencyformat($fulltaxablevalue) . '</td>';
+	$output .='<tr>
+	<th style="text-align:right;font-weight:bold">Total</th>
+	<th with="15%" style="text-align:right;font-weight:bold">' . currencyformat($fulltaxablevalue) . '</th>';
 	if ($cgstavaialbe) {
-		$output .= '<td style="text-align:center">&nbsp;</td><td style="text-align:right">' . $fullcgst . '</td>';
+		$output .= '<th style="text-align:center">&nbsp;</th><th style="text-align:right;font-weight:bold">' . currencyformat($fullcgst) . '</th>';
 		$wordspan = $wordspan + 2;
 	}
 	if ($sgstavaialbe) {
-		$output .= '<td style="text-align:center">&nbsp;</td><td style="text-align:right">' . $fullsgst . '</td>';
+		$output .= '<th style="text-align:center">&nbsp;</th><th style="text-align:right;font-weight:bold">' . currencyformat($fullsgst) . '</th>';
 		$wordspan = $wordspan + 2;
 	}
 	if ($igstavaialbe) {
-		$output .= '<td style="text-align:center">&nbsp;</td><td style="text-align:right">' . $fulligst . '</td>';
+		$output .= '<th style="text-align:center">&nbsp;</th><th style="text-align:right;font-weight:bold">' . currencyformat($fulligst) . '</th>';
 		$wordspan = $wordspan + 2;
 	}
 	$wordspan = $wordspan + 1;
-	$output .= '<td with="15%" style="text-align:right">' . currencyformat($finaltax) . '</td>';
+	$output .= '<th with="15%" style="text-align:right">' . currencyformat($finaltax) . '</th>';
 	$output .= '</tr>';
 
-	$output .= '<tr style="font-weight:bold"><td colspan="'.$wordspan.'">INR '.inWords($finaltax).'</td></tr>';
+	$output .= '<tr><th colspan="'.$wordspan.'" style="font-weight:bold">INR '.inWords($finaltax).'</th></tr>';
 
 	
 
@@ -353,32 +357,25 @@ if ($istaxisapplicable) {
 
 }
 
+
+
 if($invoiceValues['termstrue'] && trim($invoiceValues['terms']) !='')
 {
-	$output .= '<br/><table cellpadding="0" cellspacing="0" border="0"  align="center" width="90%" style="font-size:10.5px">
-	<tr><td><strong style="font-weight:bold">Terms and conditions</strong>:</td></tr>
-	<tr>
-		<td width="75%" align="left">
-			<p style="font-size:10.5px;font-family:"Arial,sans-serif; word-wrap: break-word;max-width:300px;">' . wordwrap($invoiceValues['terms'],200,"<br>\n") . '</p>
-		</td>
-	</tr>
-	</table>';
+	$output .= '
+	<div style="font-size:10.5px;float:left;margin-left:30px;">
+	<p><strong style="font-weight:bold">Terms and conditions</strong></p>
+	<p>' . wordwrap($invoiceValues['terms'],200,"<br>\n") . '</p>
+	</div>
+';
 }
 
+$output .= '
+<div style="font-size:10.5px;margin-left:30px;width:130px;text-align:center">
+	<p><span>For SATISHENGINEERING</span></p>
+	<p><img src="images/signature.jpg" style="width:80px"/></p>
+	<p>Authorised Signatory</p>
+</div>
 
-
-
-$output .= '<br/>
-
-<table cellpadding="0" cellspacing="0" border="0"  align="center" width="90%" style="font-size:10.5px">
-	<tr>
-		<td align="left">
-			<span>For SATISHENGINEERING</span><br/>
-			<img src="images/signature.jpg" style="width:80px"/><br/>
-			<span>Authorised Signatory</span>
-		</td>
-	</tr>
-</table>
 <table cellpadding="0" cellspacing="0" border="0"  align="center" width="90%">
 	<tr>
 		<td width="75%" align="left">
@@ -391,7 +388,6 @@ $output .= '<br/>
 </html>';
 
 // create pdf of invoice
-
 $invoiceFileName = 'Invoice-' . $invoiceValues['order_id'] . '.pdf';
 require_once 'dompdf/src/Autoloader.php';
 Dompdf\Autoloader::register();
