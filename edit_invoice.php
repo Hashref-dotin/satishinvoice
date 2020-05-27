@@ -46,6 +46,18 @@ if (!empty($message)) {
 					<?php
 }
 ?>
+
+<?php
+if (!empty($errormessage)) {
+    ?>
+		<div class="alert alert-danger" role="alert">
+  <?php echo $errormessage; ?>
+</div>
+					<?php
+}
+?>
+
+
 		      	<input id="currency" type="hidden" value="$">
 		    	<div class="row">
 		      		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 pull-left">

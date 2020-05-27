@@ -364,7 +364,7 @@ if($invoiceValues['termstrue'] && trim($invoiceValues['terms']) !='')
 	$output .= '
 	<div style="font-size:10.5px;float:left;margin-left:30px;">
 	<p><strong style="font-weight:bold">Terms and conditions</strong></p>
-	<p>' . wordwrap($invoiceValues['terms'],200,"<br>\n") . '</p>
+	<pre style="font-size:10.5px;font-family:"Arial,sans-serif; word-wrap: break-word;">' . $invoiceValues['terms'] . '</pre>
 	</div>
 ';
 }
@@ -379,7 +379,7 @@ $output .= '
 <table cellpadding="0" cellspacing="0" border="0"  align="center" width="90%">
 	<tr>
 		<td width="75%" align="left">
-			<pre style="font-size:10.5px;font-family:"Arial,sans-serif; word-wrap: break-word;max-width:300px;">' . $invoiceValues['declaration'] . '</pre>
+			<pre style="font-size:10.5px;font-family:"Arial,sans-serif; word-wrap: break-word;">' . $invoiceValues['declaration'] . '</pre>
 		</td>
 	</tr>
 </table>

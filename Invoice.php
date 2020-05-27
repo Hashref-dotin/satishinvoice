@@ -58,29 +58,32 @@ class Invoice
         }
     }
 
-    public function getlastinc($type)
+    public function getlastinc($type, $date)
     {
+        $invoiceyear =  date("Y", strtotime($date));
         $sqlQuery = "SELECT max(invoice_id) as maxid FROM " . $this->invoiceOrderTable . "
-        WHERE datatype='" . $type . "'";
+        WHERE datatype='" . $type . "' and year(order_date) = ". $invoiceyear;
         $nextsql = current($this->getData($sqlQuery));
-       
         $curid = (int)$nextsql['maxid'];
         if($curid == 0)
         {
-            $curid = 19997;
+            $curid = substr( $invoiceyear, -2) . '000';
         }
-
-        $nextid = $curid + 1;
+        $nextid = (int)$curid + 1;
 
         return $nextid;
     }
 
+
     public function saveInvoice($POST)
     {
-        $invoice_id = $this->getlastinc($POST['datatype']);
+        $invoice_id = $this->getlastinc($POST['datatype'],$POST['order_date']);
+
+        $newDate   =   date("Y-m-d", strtotime($POST['order_date']));
+        
         $sqlInsert = "
 			INSERT INTO " . $this->invoiceOrderTable . "(user_id, order_receiver_name, order_receiver_address, order_total_before_tax, order_total_tax, order_tax_per, order_total_after_tax, order_amount_paid, order_total_amount_due, reference, deliverynote, gst, statecode, email, mobile, datatype, declaration, order_date, termstrue, terms,enable_igst, enable_csgst, invoice_id)
-			VALUES ('" . $POST['userId'] . "', '" . $POST['companyName'] . "', '" . $POST['address'] . "', '" . (int) $POST['subTotal'] . "', '" . (int) $POST['taxAmount'] . "', '" . (int) $POST['taxRate'] . "', '" . $POST['totalAftertax'] . "', '" . $POST['amountPaid'] . "', '" . $POST['amountDue'] . "', '" . $POST['reference'] . "', '" . $POST['deliverynote'] . "', '" . $POST['gst'] . "', '" . $POST['statecode'] . "', '" . $POST['email'] . "', '" . $POST['mobile'] . "', '" . $POST['datatype'] . "' , '" . $POST['declaration'] . "', '" . $POST['order_date'] . "', ".(int)$POST['termstrue'].", '".$POST['terms']."', ".(int)$POST['enable_igst']."  , ".(int)$POST['enable_csgst'].", ".$invoice_id.")";
+			VALUES ('" . $POST['userId'] . "', '" . $POST['companyName'] . "', '" . $POST['address'] . "', '" . (int) $POST['subTotal'] . "', '" . (int) $POST['taxAmount'] . "', '" . (int) $POST['taxRate'] . "', '" . $POST['totalAftertax'] . "', '" . $POST['amountPaid'] . "', '" . $POST['amountDue'] . "', '" . $POST['reference'] . "', '" . $POST['deliverynote'] . "', '" . $POST['gst'] . "', '" . $POST['statecode'] . "', '" . $POST['email'] . "', '" . $POST['mobile'] . "', '" . $newDate . "' , '" . $POST['declaration'] . "', '" . $POST['order_date'] . "', ".(int)$POST['termstrue'].", '".$POST['terms']."', ".(int)$POST['enable_igst']."  , ".(int)$POST['enable_csgst'].", ".$invoice_id.")";
         if (mysqli_query($this->dbConnect, $sqlInsert)) {
             $lastInsertId = mysqli_insert_id($this->dbConnect);
             for ($i = 0; $i < count($POST['productCode']); $i++) {
@@ -97,10 +100,12 @@ class Invoice
     }
     public function updateInvoice($POST)
     {
+        $newDate   =   date("Y-m-d", strtotime($POST['order_date']));
+    
         if ($POST['invoiceId']) {
             $sqlInsert = "
 				UPDATE " . $this->invoiceOrderTable . "
-				SET order_receiver_name = '" . $POST['companyName'] . "', order_receiver_address= '" . $POST['address'] . "', order_total_before_tax = '" . $POST['subTotal'] . "', order_total_tax = '" . $POST['taxAmount'] . "', order_tax_per = '" . $POST['taxRate'] . "', order_total_after_tax = '" . $POST['totalAftertax'] . "', order_amount_paid = '" . $POST['amountPaid'] . "', order_total_amount_due = '" . $POST['amountDue'] . "', reference = '" . $POST['reference'] . "', deliverynote =  '" . $POST['deliverynote'] . "', gst =  '" . $POST['gst'] . "', mobile =  '" . $POST['mobile'] . "', email =  '" . $POST['email'] . "', statecode =  '" . $POST['statecode'] . "', datatype =  '" . $POST['datatype'] . "', declaration =  '" . $POST['declaration'] . "', order_date =  '" . $POST['order_date'] . "', termstrue =  '" . (int)$POST['termstrue'] . "', terms =  '" . $POST['terms'] . "', enable_igst =  '" . (int)$POST['enable_igst'] . "', enable_csgst =  '" . (int)$POST['enable_csgst'] . "' WHERE user_id = '" . $POST['userId'] . "' AND order_id = '" . $POST['invoiceId'] . "'";
+				SET order_receiver_name = '" . $POST['companyName'] . "', order_receiver_address= '" . $POST['address'] . "', order_total_before_tax = '" . $POST['subTotal'] . "', order_total_tax = '" . $POST['taxAmount'] . "', order_tax_per = '" . $POST['taxRate'] . "', order_total_after_tax = '" . $POST['totalAftertax'] . "', order_amount_paid = '" . $POST['amountPaid'] . "', order_total_amount_due = '" . $POST['amountDue'] . "', reference = '" . $POST['reference'] . "', deliverynote =  '" . $POST['deliverynote'] . "', gst =  '" . $POST['gst'] . "', mobile =  '" . $POST['mobile'] . "', email =  '" . $POST['email'] . "', statecode =  '" . $POST['statecode'] . "', datatype =  '" . $POST['datatype'] . "', declaration =  '" . $POST['declaration'] . "', order_date =  '" . $newDate . "', termstrue =  '" . (int)$POST['termstrue'] . "', terms =  '" . $POST['terms'] . "', enable_igst =  '" . (int)$POST['enable_igst'] . "', enable_csgst =  '" . (int)$POST['enable_csgst'] . "' WHERE user_id = '" . $POST['userId'] . "' AND order_id = '" . $POST['invoiceId'] . "'";
             mysqli_query($this->dbConnect, $sqlInsert);
         }
         $this->deleteInvoiceItems($POST['invoiceId']);
@@ -249,5 +254,14 @@ function inWords($number)
 function invoicenumber($num)
 {
     return sprintf('%04d', $num);
+}
+
+function checkDateForm($date)
+{
+    if (preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$date)) {
+        return true;
+    } else {
+        return false;
+    }
 }
 define('WEBPAGE_TITLE', 'Satishengineering invoice system');

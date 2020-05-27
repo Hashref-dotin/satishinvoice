@@ -26,8 +26,7 @@
 		htmlRows += '<td><input type="number" name="total[]" id="total_'+count+'" readonly class="form-control total" autocomplete="off"></td>';          
 		htmlRows += '</tr>';
 		$('#invoiceItem').append(htmlRows);
-		checkigstcolumns();
-		checkcsgstcolumns();
+		checkgstcolumns();
 	}); 
 	$(document).on('click', '#removeRows', function(){
 		$(".itemRow:checked").each(function() {
@@ -80,7 +79,7 @@
 		}
 	});
 
-	$( "#order_date" ).datepicker({ dateFormat: 'dd/mm/yy' });
+	$( "#order_date" ).datepicker({ dateFormat: 'yy-mm-dd' });
 
 	$("#termstrue").on('click', function(){
 		if($(this).prop("checked") == true){
@@ -94,10 +93,12 @@
 
 	
 	$("#enable_igst").on('click', function(){
-		checkigstcolumns();
+		$("#enable_csgst").prop("checked", false);
+		checkgstcolumns();
 	});
 	$("#enable_csgst").on('click', function(){
-		checkcsgstcolumns();
+		$("#enable_igst").prop("checked", false);
+		checkgstcolumns();
 	});
 	
 	var textlimit = 180;
@@ -157,7 +158,7 @@ function calculateTotal(){
 	return true;
 }
 
-function checkcsgstcolumns()
+function checkgstcolumns()
 {
 	
 	if($("#enable_csgst").prop("checked") == true){
@@ -171,11 +172,7 @@ function checkcsgstcolumns()
 		$("body").find(".sgst_input").val('0');
 		calculateTotal();
 	}
-}
 
-function checkigstcolumns()
-{
-	console.log($("#enable_igst").prop("checked"));
 	if($("#enable_igst").prop("checked") == true){
 		$("body").find(".igst_text").show();
 	}
@@ -185,6 +182,9 @@ function checkigstcolumns()
 		calculateTotal();
 	}
 }
+
+
+
 
 
  
