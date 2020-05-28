@@ -44,12 +44,12 @@ $datatype = (isset($_POST['datatype'])) ? $_POST['datatype'] : '';
 $invoiceList = $invoice->getInvoiceList($datatype, '', false, $start_from, $limit);
 $sl = 1;
 foreach ($invoiceList as $invoiceDetails) {
-    $invoiceDate = date("d/M/Y, H:i:s", strtotime($invoiceDetails["date_created"]));
+    $invoiceDate = date("d/M/Y", strtotime($invoiceDetails["date_created"]));
     echo '
               <tr>
                 <td>' . $sl . '</td>
                 <td>' . $invoiceDate . '</td>
-                <td>' . $invoiceDetails["order_receiver_name"] . '</td>
+                <td>' . $invoiceDetails["order_receiver_name"] .'('. $invoiceDetails["invoice_id"] . ')</td>
                 <td>' . $invoiceDetails["order_date"] . '</td>
                 <td>' . $invoiceDetails["order_total_after_tax"] . '</td>
                 <td>' . $invoiceDetails["datatype"] . '</td>

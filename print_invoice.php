@@ -135,7 +135,7 @@ $output .= '</td>
 								<td width="35%" valign="top">
 									Reference : ' . $invoiceValues['reference'] . '<br />
 									Delivery Note : ' . $invoiceValues['deliverynote'] . '<br />
-									Invoice Date : ' . $invoiceDate . '<br />
+									'.$invoiceValues['datatype'].' Date : ' . $invoiceDate . '<br />
 						</td>
 					</tr>
 			</table>
