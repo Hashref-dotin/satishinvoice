@@ -8,8 +8,8 @@ class Invoice
     private $password = "3RnyX80k";
     private $database = "satish_satish_invoice";
     private $invoiceUserTable = 'invoice_user';
-    private $invoiceOrderTable = 'invoice_order';
-    private $invoiceOrderItemTable = 'invoice_order_item';
+    private $invoiceOrderTable = 'ssv_invoice_order';
+    private $invoiceOrderItemTable = 'ssv_invoice_order_item';
     private $dbConnect = false;
     public function __construct()
     {
@@ -264,5 +264,5 @@ function checkDateForm($date)
         return false;
     }
 }
-define('WEBPAGE_TITLE', 'Satishengineering invoice system');
-$satishtabactive = "active highlighttab";
+define('WEBPAGE_TITLE', 'S.S.V Engineering invoice system');
+$ssvtabactive = 'active highlighttab';

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'Invoice.php';
+include 'Ssv.php';
 $invoice = new Invoice();
 $invoice->checkLoggedIn();
 if (!empty($_GET['invoice_id']) && $_GET['invoice_id']) {
@@ -37,8 +37,6 @@ $output = '<html>
 			left: 0cm;
 			right: 0cm;
 			width:100%;
-			margin-left:-50px;
-			margin-right:-150px;
 
 		}
 
@@ -73,28 +71,39 @@ $output = '<html>
 			word-break:break-all;
 		}
 
+		h1
+		{
+			margin:5px;
+			font-size:40px;
+			color:#00035B;
+		}
+
 		.page_break { page-break-before: always; margin-top:60px; }
 
 	</style>
 </head>
-
+ 
 	<header>
-		<div style="margin:0px;width:100%;height:100px;background-color:#24157B"><img src="images/pdf_logo.png" style="height:100px;"/></div>
+		<div style="width:100%;height:100px;text-align:center">
+		<h1>S.S.V. Engineering</h1>
+		<p>#553, Survey No. 88, 5th Main, 4th Phase, 2nd Stage, Peenya Industrial Area,</p>
+		<p>Bangalore-560 058. Karnataka Phone : 080-41272652, 080-4813297</p>
+		<hr style="padding-right:15px;padding-left:15px;"/>
+		</div>
 	</header>
 
 	<footer>
 		<table cellpadding="0" cellspacing="0" border="0"  align="center" width="100%" style="font-size:10.5px;color:#000">
 			<tr>
-				<td width="25%" valign="top"><strong style="color:#2E2586">Bank Details</strong>
-					<br/>Karnataka Bank,<br/>Mahalakshmipura<br/>A/c No: 1122 000 100 0461 01<br/>IFSC: KARB 0000 112<br/>MICR: 560052032</td>
-				<td width="25%" valign="top">
-					<strong style="color:#2E2586">Bank Details</strong><br/>Canara Bank,<br/>Vijayanagara<br/>A/c No: 1146 285 000 003<br/>IFSC: CNRB 0001 146<br/>MICR: 560015062
+				<td width="33%" valign="top">
+					Canara Bank,<br/>Branch: Vijayanagara<br/>Bangalore-560 040.<br/>A/c No: 1146 201 007 765<br/>IFSC: CNRB 0001 146<br/>MICR: 560015062
 				</td>
-				<td width="25%" valign="top">
-					<strong style="color:#2E2586">Regd. address</strong><br/>B69/A, 3rd Stage,<br/>Peenya Industrial Estate,<br/>Bangalore - 560058.<br/><strong style="color:#2E2586">Warehouse:</strong> 553, 5<sup>th</sup> Main,<br/>Peenya 2<sup>nd</sup> Stage<br/>Bangalore - 560058.
+				<td width="33%" valign="top">
+				Karnataka Bank,<br/>Branch: Mahalakshimipuram<br/>Bangalore-560 040.<br/>A/c No: 1122000100075201<br/>IFSC: kARB0000112<br/>MICR: 560052032
 				</td>
-				<td width="25%" valign="top">
-					<strong style="color:#2E2586">Registration</strong><br/>GST: 29ACHPS2669E1Z7<br/>PAN: ACHPS2669E<br/><strong style="color:#2E2586">Contact</strong>:info@satishengineering.com<br/>+91 80 41272652 / 40942959<br/>www.satishengineering.com
+				<td width="34%" valign="top">
+					GST: 29ADLPV6300N1ZV<br/>PAN: ADLPV6300N<br/>Branch:-<br/># R-29, KSSIDC Industrial Estate,<br/>Jigani 2nd Stage,<br/>
+					Bangalore-560 105
 				</td>
 			</tr>
 		</table>
@@ -371,7 +380,7 @@ if($invoiceValues['termstrue'] && trim($invoiceValues['terms']) !='')
 
 $output .= '
 <div style="font-size:10.5px;margin-left:30px;width:130px;text-align:center">
-	<p><span>For SATISHENGINEERING</span></p>
+	<p><span>For SSV ENGINEERING</span></p>
 	<p><img src="images/signature.jpg" style="width:80px"/></p>
 	<p>Authorised Signatory</p>
 </div>

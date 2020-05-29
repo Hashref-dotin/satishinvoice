@@ -8,8 +8,8 @@ class Invoice
     private $password = "3RnyX80k";
     private $database = "satish_satish_invoice";
     private $invoiceUserTable = 'invoice_user';
-    private $invoiceOrderTable = 'invoice_order';
-    private $invoiceOrderItemTable = 'invoice_order_item';
+    private $invoiceOrderTable = 'super_invoice_order';
+    private $invoiceOrderItemTable = 'super_invoice_order_item';
     private $dbConnect = false;
     public function __construct()
     {
@@ -181,12 +181,12 @@ function currencyformat($amount, $symbol = true)
 {
 
     if ($symbol) {
-        setlocale(LC_MONETARY, 'en_IN');
+        setlocale(LC_MONETARY, 'de_DE');
         $money = money_format('%!i', $amount);
         $removedecimal = str_replace('.00', '', $money);
-        return $removedecimal;
+        return '&#8364; '.$removedecimal;
     } else {
-        return (int) $amount;
+        return (float) $amount;
     }
 
 }
@@ -264,5 +264,5 @@ function checkDateForm($date)
         return false;
     }
 }
-define('WEBPAGE_TITLE', 'Satishengineering invoice system');
-$satishtabactive = "active highlighttab";
+define('WEBPAGE_TITLE', 'Supertechs invoice system');
+$supertabactive = 'active highlighttab';

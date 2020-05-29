@@ -1,13 +1,13 @@
 <?php
 session_start();
 include 'header.php';
-include 'Invoice.php';
+include 'Ssv.php';
 $invoice = new Invoice();
 $invoice->checkLoggedIn();
 if (!empty($_POST['companyName']) && $_POST['companyName'] && !empty($_POST['invoiceId']) && $_POST['invoiceId']) {
     $invoice->updateInvoice($_POST);
     if (isset($_POST['invoice_btn'])) {
-        header("Location:invoice_list.php");
+        header("Location:ssv_list.php");
     }
     if (isset($_POST['invoice_btn_stay'])) {
         $message = "Updated Successfully";
@@ -34,7 +34,7 @@ if (!empty($_GET['update_id']) && $_GET['update_id']) {
 		    	<div class="row">
 		    		<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
 
-						<?php include 'menu.php';?>
+						<?php include 'menu_ssv.php';?>
 		    		</div>
 		    	</div>
 				<?php
@@ -200,7 +200,7 @@ foreach ($invoiceItems as $invoiceItem) {
 							<input type="hidden" value="<?php echo $invoiceValues['order_id']; ?>" class="form-control" name="invoiceId" id="invoiceId">
 			      			<input data-loading-text="Updating Invoice..." type="submit" name="invoice_btn" value="Save Invoice" class="btn btn-success submit_btn invoice-save-btm">
 							<input data-loading-text="Updating Invoice..." type="submit" name="invoice_btn_stay" value="Save Invoice and Stay" class="btn btn-success submit_btn invoice-save-btm">
-							<a href="print_invoice.php?invoice_id=<?php echo $invoiceValues['order_id']; ?>" target="_blank"><button type="button" class="btn btn-primary btn-sm">Print PDF</button></a>
+							<a href="print_ssv.php?invoice_id=<?php echo $invoiceValues['order_id']; ?>" target="_blank"><button type="button" class="btn btn-primary btn-sm">Print PDF</button></a>
 			      		</div>
 
 		      		</div>

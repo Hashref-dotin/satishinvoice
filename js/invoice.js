@@ -79,6 +79,47 @@
 		}
 	});
 
+	
+
+	$(document).on('click', '.deleteSuper', function(){
+		var id = $(this).attr("id");
+		if(confirm("Are you sure you want to remove this?")){
+			$.ajax({
+				url:"action_super.php",
+				method:"POST",
+				dataType: "json",
+				data:{id:id, action:'delete_invoice'},				
+				success:function(response) {
+					if(response.status == 1) {
+						$('#'+id).closest("tr").remove();
+					}
+				}
+			});
+		} else {
+			return false;
+		}
+	});
+
+
+	$(document).on('click', '.deleteSsv', function(){
+		var id = $(this).attr("id");
+		if(confirm("Are you sure you want to remove this?")){
+			$.ajax({
+				url:"action_ssv.php",
+				method:"POST",
+				dataType: "json",
+				data:{id:id, action:'delete_invoice'},				
+				success:function(response) {
+					if(response.status == 1) {
+						$('#'+id).closest("tr").remove();
+					}
+				}
+			});
+		} else {
+			return false;
+		}
+	});
+
 	$( "#order_date" ).datepicker({ dateFormat: 'yy-mm-dd' });
 
 	$("#termstrue").on('click', function(){
@@ -107,9 +148,22 @@
             var tlength = $(this).val().length;
             $(this).val($(this).val().substring(0, textlimit));
             var tlength = $(this).val().length;
-            remain = textlimit - parseInt(tlength);
+			remain = textlimit - parseInt(tlength);
+			$("#showtotalterms").text(tlength);
             $('#terms').text(remain);
-         });   
+		 });  
+		 
+		 
+		 var textlimit = 160;
+
+        $('.declarationtext').keyup(function() {
+            var tlength = $(this).val().length;
+            $(this).val($(this).val().substring(0, textlimit));
+			var tlength = $(this).val().length;
+			$("#showtotal").text(tlength);
+            remain = textlimit - parseInt(tlength);
+            $('.declarationtext').text(remain);
+         });  
 
 });	
 function calculateTotal(){

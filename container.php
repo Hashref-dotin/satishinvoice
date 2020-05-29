@@ -1,22 +1,17 @@
 </head>
-<body class="">
-<div role="navigation" class="navbar navbar-default navbar-static-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a href="#" class="navbar-brand">Satishengineering</a>
-        </div>
-        <div class="navbar-collapse collapse">
-         
-        </div><!--/.nav-collapse -->
-      </div>
-    </div>
-	
-	<div class="container" style="min-height:500px;">
-	<div class=''>
-	</div>
+<body>
+
+<ul class="nav nav-tabs nav-justified md-tabs indigo mt-n1">
+  <li class="nav-item <?php echo $satishtabactive;?> ">
+    <a class="nav-link <?php echo $satishtabactive;?>" href="invoice_list.php" >Satishengineering</a>
+  </li>
+  <li class="nav-item <?php echo $ssvtabactive;?>">
+    <a class="nav-link <?php echo $ssvtabactive;?>" href="ssv_list.php"  aria-selected="false">S.S.V Engineering</a>
+  </li>
+  <li class="nav-item <?php echo $supertabactive;?>">
+    <a class="nav-link <?php echo $supertabactive;?>"  href="super_list.php" aria-selected="false">Supertechs</a>
+  </li>
+</ul>
+<div class="container" style="min-height:500px;">
+
+<div class="clear"></div>

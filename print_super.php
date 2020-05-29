@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'Invoice.php';
+include 'Super.php';
 $invoice = new Invoice();
 $invoice->checkLoggedIn();
 if (!empty($_GET['invoice_id']) && $_GET['invoice_id']) {
@@ -25,21 +25,20 @@ $output = '<html>
 	<style>
 		/** Define the margins of your page **/
 		@page {
-			margin-top: 170px;
+			margin-top: 190px;
+			padding-top:20px;
 			page-break-after: always;
 			margin-bottom:40px;
 		}
 
 		header {
 			position: fixed;
-			top: -110px;
+			top: -150px;
 			height: 100px;
 			left: 0cm;
 			right: 0cm;
 			width:100%;
-			margin-left:-50px;
-			margin-right:-150px;
-
+			text-align:center
 		}
 
 		footer {
@@ -79,22 +78,22 @@ $output = '<html>
 </head>
 
 	<header>
-		<div style="margin:0px;width:100%;height:100px;background-color:#24157B"><img src="images/pdf_logo.png" style="height:100px;"/></div>
+		<div style="margin:0px;"><img src="images/super.png" style="width:670px;"/>
+		<p style="font-size:14px;text-align:left !important;color:#231F20">&nbsp; &nbsp;&nbsp; &nbsp;<span style="text-decoration: underline;">SupertechS Werkzeugmaschinen GmbH, Kurt-Blaum - Platz 8- 63450 Hanau</span></p></div>
+		
 	</header>
 
 	<footer>
 		<table cellpadding="0" cellspacing="0" border="0"  align="center" width="100%" style="font-size:10.5px;color:#000">
 			<tr>
-				<td width="25%" valign="top"><strong style="color:#2E2586">Bank Details</strong>
-					<br/>Karnataka Bank,<br/>Mahalakshmipura<br/>A/c No: 1122 000 100 0461 01<br/>IFSC: KARB 0000 112<br/>MICR: 560052032</td>
-				<td width="25%" valign="top">
-					<strong style="color:#2E2586">Bank Details</strong><br/>Canara Bank,<br/>Vijayanagara<br/>A/c No: 1146 285 000 003<br/>IFSC: CNRB 0001 146<br/>MICR: 560015062
+				<td width="33%" valign="top">
+				<strong>CommerzBank-60311- Frankfurt Am Main</strong><br/>Konto Nr. : 3343357<br/>BLZ : 500 400 00<br/>IBAN : DE04 5004 0000 0334 3357 00<br/>SWIFT-BIC : COBADEFFXXX
 				</td>
-				<td width="25%" valign="top">
-					<strong style="color:#2E2586">Regd. address</strong><br/>B69/A, 3rd Stage,<br/>Peenya Industrial Estate,<br/>Bangalore - 560058.<br/><strong style="color:#2E2586">Warehouse:</strong> 553, 5<sup>th</sup> Main,<br/>Peenya 2<sup>nd</sup> Stage<br/>Bangalore - 560058.
+				<td width="33%" valign="top">
+				<strong>SupertechS Werkzeugmaschinen GmbH</strong>Kurt-Blaum - Platz 8<br/>63450 Hanau<br/>E-mail: info@supertechsgmbh.de<br/>Tele:   +49 1521 4417 176
 				</td>
-				<td width="25%" valign="top">
-					<strong style="color:#2E2586">Registration</strong><br/>GST: 29ACHPS2669E1Z7<br/>PAN: ACHPS2669E<br/><strong style="color:#2E2586">Contact</strong>:info@satishengineering.com<br/>+91 80 41272652 / 40942959<br/>www.satishengineering.com
+				<td width="34%" valign="top">
+					<strong>Handelsregister</strong>HRB 96758<br/>Amtsgericht: Hanau<br/>Steuer Nr.: 044 243 46735<br/>Steuer ID: DE321263139
 				</td>
 			</tr>
 		</table>
@@ -102,7 +101,7 @@ $output = '<html>
 
 $output .= '<main>
 
-	<div style="font-size:12px;width=80%;font-family:"Arial,sans-serif;color:#575755">
+	<div style="font-size:12px;width=80%;font-family:"Arial;color:#575755">
 		<table cellpadding="5" cellspacing="0"  align="center" width="95%">
 			<tr>
 			<td colspan="2" align="center">
@@ -118,7 +117,7 @@ if (!empty($invoiceValues['email'])) {
     $output .= 'Email id : ' . $invoiceValues['email'] . '<br />';
 }
 if (!empty($invoiceValues['gst'])) {
-    $output .= 'GSTIN/UIN : ' . $invoiceValues['gst'] . '<br />';
+    $output .= 'TAX ID: ' . $invoiceValues['gst'] . '<br />';
 }
 if (!empty($invoiceValues['statecode'])) {
     $output .= 'State Code : ' . $invoiceValues['statecode'] . '<br />';
@@ -152,7 +151,6 @@ $output .= '</td>
 			<tr style="font-weight:bold !important;">
 				<th align="center" width="5%" >SL</th>
 				<th align="center" width="46%" >Description</th>
-				<th align="center" width="10%" >HSN/SAC</th>
 				<th align="center" width="8%" >QTY</th>
 				<th align="center" width="17%" >Unit Price<br/> INR</th>
 				<th align="center" width="15%" >Gross Price<br/>INR</th></tr>';
@@ -189,7 +187,7 @@ foreach ($invoiceItems as $invoiceItem) {
     if ($invoiceItem["order_item_igst"] > 0) {
 		$igst = $igst + ($quantityGross * $invoiceItem["order_item_igst"]) / 100;
 		$taxtext .= '<p>'.currencyformat($igst).'</p>';
-		$nameshow .= '<p style="text-align:right">IGST &nbsp;&nbsp;&nbsp;&nbsp;'.currencyformat($invoiceItem["order_item_igst"], false) . '% </p>';
+		$nameshow .= '<p style="text-align:right">TAX &nbsp;&nbsp;&nbsp;&nbsp;'.currencyformat($invoiceItem["order_item_igst"], false) . '% </p>';
         $igstavaialbe = 1;
     }
 	
@@ -204,7 +202,6 @@ foreach ($invoiceItems as $invoiceItem) {
     $output .= '<tr>
 					<td valign="top" width="5%" algin="center" style="border-right: 0.5px solid #000;">' . $count . '</td>
 					<td valign="top" width="46%" style="border-right: 0.5px solid #000;">' . trim($invoiceItem["item_name"]) . '<br/><br/><br/>' . '</td>
-					<td valign="top" width="10%" style="text-align:center;border-right: 0.5px solid #000;">' . $invoiceItem["item_code"] . '</td>
 					<td valign="top" width="8%" align="center" style="border-right: 0.5px solid #000;">' . (int) $invoiceItem["order_item_quantity"] . '</td>
 					<td valign="top" width="17%" align="center" style="border-right: 0.5px solid #000;">' . currencyformat($invoiceItem["order_item_price"]) . '</td>
 					<td valign="top" width="15%" style="text-align:right;border-right: 0.5px solid #000;">' . currencyformat($quantityGross) . '</td>
@@ -228,23 +225,23 @@ if ($igstavaialbe) {
 
 
 $output .= '<tr>
-				<th align="right" colspan="5"><strong>Taxable value</strong></th>
+				<th align="right" colspan="4"><strong>Taxable value</strong></th>
 				<th align="right">' . currencyformat($totaltaxable) . '</th>
 				</tr>';
 				$output .= '<tr>
 				<th align="right" colspan="2">'.$nameshow.'</th>
-				<th align="right" colspan="4" >' .$taxtext . '</th>
+				<th align="right" colspan="3" >' .$taxtext . '</th>
 				</tr>';
 				$output .= '<tr>
-				<th align="right" colspan="5"><strong>Total</strong></th>
+				<th align="right" colspan="4"><strong>Total</strong></th>
 				<th align="right"><strong>' . currencyformat($totalpayable) . '</strong></th>
 				</tr>';
 $output .= '<tr>
-<th align="left" colspan="6" ><strong>INR ' . inWords($invoiceValues['order_total_after_tax']) . '<strong></th>
+<th align="left" colspan="5" ><strong>&#8364; ' . inWords($invoiceValues['order_total_after_tax']) . '<strong></th>
 				</tr>';
 $output .= '
 			</table>';
-
+/*
 if ($istaxisapplicable) {
 
     if ($totallines > 20 && count($invoiceItems) <= 4) {
@@ -262,7 +259,7 @@ if ($istaxisapplicable) {
         $output .= '<th colspan="2" with="16%"  align="center">SGST</th>';
     }
     if ($igstavaialbe) {
-        $output .= '<th colspan="2" with="16%"  align="center">IGST</th>';
+        $output .= '<th colspan="2" with="16%"  align="center">TAX</th>';
     }
 
     $output .= '<th with="14%" rowspan="2" align="center">Total<br/>Tax Amount</th></tr>';
@@ -356,7 +353,7 @@ if ($istaxisapplicable) {
 		</table>';
 
 }
-
+*/
 
 
 if($invoiceValues['termstrue'] && trim($invoiceValues['terms']) !='')
