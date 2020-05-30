@@ -84,7 +84,7 @@ $output = '<html>
 </head>
  
 	<header>
-		<div style="width:100%;height:100px;text-align:center">
+		<div style="width:100%;height:100px;text-align:center;font-family:Helvetica !important">
 		<h1>S.S.V. Engineering</h1>
 		<p>#553, Survey No. 88, 5th Main, 4th Phase, 2nd Stage, Peenya Industrial Area,</p>
 		<p>Bangalore-560 058. Karnataka Phone : 080-41272652, 080-4813297</p>

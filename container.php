@@ -11,6 +11,9 @@
   <li class="nav-item <?php echo $supertabactive;?>">
     <a class="nav-link <?php echo $supertabactive;?>"  href="super_list.php" aria-selected="false">Supertechs</a>
   </li>
+  <li class="nav-item <?php echo $satishcompanyabactive;?>">
+    <a class="nav-link <?php echo $satishcompanyabactive;?>"  href="satish_list.php" aria-selected="false">Satish Engineering Company</a>
+  </li>
 </ul>
 <div class="container" style="min-height:500px;">
 

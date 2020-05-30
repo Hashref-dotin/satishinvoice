@@ -1,7 +1,7 @@
 <?php
 session_start();
 include 'header.php';
-include 'Invoice.php';
+include 'Satish.php';
 $invoice = new Invoice();
 $invoice->checkLoggedIn();
 $errorMsg = '';
@@ -14,7 +14,7 @@ if (!empty($_POST['companyName']) && $_POST['companyName']) {
         if (!is_numeric($id)) {
             $errorMsg = "Unable to save." . $id;
         } else {
-            header("Location:edit_invoice.php?update_id=" . $id);
+            header("Location:edit_satish.php?update_id=" . $id);
         }
     }
 } else if (isset($_POST['companyName'])) {
@@ -37,7 +37,7 @@ if (!empty($_POST['companyName']) && $_POST['companyName']) {
 			<div class="row">
 				<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
 					<h2 class="title">Invoice System</h2>
-					<?php include 'menu.php';?>
+					<?php include 'menu_satish.php';?>
 				</div>
 			</div>
 			<input id="currency" type="hidden" value="$">
