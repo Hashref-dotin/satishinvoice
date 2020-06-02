@@ -1,14 +1,15 @@
 <?php
 ob_start();
 date_default_timezone_set('Asia/Kolkata');
+include 'src.all.inc';
 class Invoice
 {
-    private $host = 'localhost';
-    private $user = 'satish_user';
-    private $password = "3RnyX80k";
-    private $database = "satish_satish_invoice";
+    private $host = DB_HOST;
+    private $user = DB_USER;
+    private $password = DB_PASS;
+    private $database = DB_NAME;
     private $invoiceUserTable = 'invoice_user';
-    private $invoiceOrderTable = 'satish_invoice_order';
+    public $invoiceOrderTable = 'satish_invoice_order';
     private $invoiceOrderItemTable = 'satish_invoice_order_item';
     private $dbConnect = false;
     public function __construct()

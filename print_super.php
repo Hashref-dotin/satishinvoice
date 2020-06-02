@@ -20,7 +20,7 @@ return count($explodedLines);
 }
 
 $translate = array ('Invoice' => 'Rechnung',
-					'Proforma' => 'Proforma',
+					'Proforma' => 'Proforma - Rechnung',
 				'Quoatation'=>'Zitat');
 
 $output = '<html>
@@ -137,7 +137,7 @@ if ($invoiceValues['enable_igst'] == 1) {
 $output .= '</td>
 								<td width="30%">&nbsp;</td>
 								<td width="35%" valign="top">
-									'.$translate[$invoiceValues['datatype']].' Date : ' . date('d-m-Y', strtotime($invoiceDate)) . '<br />
+									'.$translate[$invoiceValues['datatype']].' Datum : ' . date('d-m-Y', strtotime($invoiceDate)) . '<br />
 						</td>
 					</tr>
 			</table>
@@ -186,13 +186,13 @@ foreach ($invoiceItems as $invoiceItem) {
 		$sgst = $sgst + ($quantityGross * $invoiceItem["order_item_sgst"]) / 100;
         $nameshow .= '<p style="text-align:right">SGST &nbsp;&nbsp;&nbsp;&nbsp;'.currencyformat($invoiceItem["order_item_sgst"], false) . '% </p>';
         $sgstavaialbe = 1;
-    }
-    if ($invoiceItem["order_item_igst"] > 0) {
+	}
+	$igstavaialbe = 1;
 		$igst = $igst + ($quantityGross * $invoiceItem["order_item_igst"]) / 100;
 		$taxtext .= '<p>'.currencyformat($igst).'</p>';
-		$nameshow .= '<p style="text-align:right">Steuerwert &nbsp;&nbsp;&nbsp;&nbsp;'.currencyformat($invoiceItem["order_item_igst"], false) . '% </p>';
-        $igstavaialbe = 1;
-    }
+		$nameshow .= '<p style="text-align:right">Ex - Steuerwert &nbsp;&nbsp;&nbsp;&nbsp;'.currencyformat($invoiceItem["order_item_igst"], false) . '% </p>';
+        
+
 	
 	$totaltaxable = $totaltaxable + $quantityGross;
 
@@ -265,7 +265,7 @@ if($invoiceValues['termstrue'] && trim($invoiceValues['terms']) !='')
 }
 
 $output .= '
-<div style="font-size:10.5px;margin-left:30px;width:130px;text-align:center">
+<div style="font-size:12px;margin-left:30px;width:130px;text-align:center">
 	<p><span>Für Supertechs</span></p>
 	<p><img src="images/signature.png" style="width:80px"/></p>
 	<p>Zeichnungsberechtigte</p>

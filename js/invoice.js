@@ -140,6 +140,13 @@
 		}
 	});
 
+	var tablename = $("#data-table").attr("data-tablename");
+	$('#data-table').DataTable( {
+        "processing": true,
+        "serverSide": true,
+        "ajax": "server_processing.php?tablename="+tablename
+    });
+
 	$( "#order_date" ).datepicker({ dateFormat: 'yy-mm-dd' });
 
 	$("#termstrue").on('click', function(){
