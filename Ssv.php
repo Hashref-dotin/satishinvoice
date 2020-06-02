@@ -83,13 +83,13 @@ class Invoice
         
         $sqlInsert = "
 			INSERT INTO " . $this->invoiceOrderTable . "(user_id, order_receiver_name, order_receiver_address, order_total_before_tax, order_total_tax, order_tax_per, order_total_after_tax, order_amount_paid, order_total_amount_due, reference, deliverynote, gst, statecode, email, mobile, datatype, declaration, order_date, termstrue, terms,enable_igst, enable_csgst, invoice_id, date_created)
-			VALUES ('" . $POST['userId'] . "', '" . $POST['companyName'] . "', '" . $POST['address'] . "', '" . (int) $POST['subTotal'] . "', '" . (int) $POST['taxAmount'] . "', '" . (int) $POST['taxRate'] . "', '" . $POST['totalAftertax'] . "', '" . $POST['amountPaid'] . "', '" . $POST['amountDue'] . "', '" . $POST['reference'] . "', '" . $POST['deliverynote'] . "', '" . $POST['gst'] . "', '" . $POST['statecode'] . "', '" . $POST['email'] . "', '" . $POST['mobile'] . "', '" . $POST['datatype'] . "' , '" . $POST['declaration'] . "', '" . $POST['order_date'] . "', ".(int)$POST['termstrue'].", '".$POST['terms']."', ".(int)$POST['enable_igst']."  , ".(int)$POST['enable_csgst'].", ".$invoice_id.", '".date("Y-m-d H:i:s")."')";
+			VALUES ('" . $POST['userId'] . "', '" . addslashes($POST['companyName']) . "', '" . addslashes($POST['address']) . "', '" . (int) $POST['subTotal'] . "', '" . (int) $POST['taxAmount'] . "', '" . (int) $POST['taxRate'] . "', '" . $POST['totalAftertax'] . "', '" . $POST['amountPaid'] . "', '" . $POST['amountDue'] . "', '" . $POST['reference'] . "', '" . $POST['deliverynote'] . "', '" . $POST['gst'] . "', '" . $POST['statecode'] . "', '" . $POST['email'] . "', '" . $POST['mobile'] . "', '" . $POST['datatype'] . "' , '" . addslashes($POST['declaration']) . "', '" . $POST['order_date'] . "', ".(int)$POST['termstrue'].", '".addslashes($POST['terms'])."', ".(int)$POST['enable_igst']."  , ".(int)$POST['enable_csgst'].", ".$invoice_id.", '".date("Y-m-d H:i:s")."')";
         if (mysqli_query($this->dbConnect, $sqlInsert)) {
             $lastInsertId = mysqli_insert_id($this->dbConnect);
             for ($i = 0; $i < count($POST['productCode']); $i++) {
                 $sqlInsertItem = "
 			INSERT INTO " . $this->invoiceOrderItemTable . "(order_id, item_code, item_name, order_item_quantity, order_item_price, order_item_final_amount,order_item_cgst, order_item_sgst, order_item_igst)
-			VALUES ('" . $lastInsertId . "', '" . $POST['productCode'][$i] . "', '" . $POST['productName'][$i] . "', '" . $POST['quantity'][$i] . "', '" . $POST['price'][$i] . "', '" . $POST['total'][$i] . "', '" . $POST['cgst'][$i] . "', '" . $POST['sgst'][$i] . "', '" . $POST['igst'][$i] . "')";
+			VALUES ('" . $lastInsertId . "', '" . $POST['productCode'][$i] . "', '" . addslashes($POST['productName'][$i]) . "', '" . $POST['quantity'][$i] . "', '" . $POST['price'][$i] . "', '" . $POST['total'][$i] . "', '" . $POST['cgst'][$i] . "', '" . $POST['sgst'][$i] . "', '" . $POST['igst'][$i] . "')";
                 mysqli_query($this->dbConnect, $sqlInsertItem);
             } 
             return $lastInsertId;
@@ -105,14 +105,14 @@ class Invoice
         if ($POST['invoiceId']) {
             $sqlInsert = "
 				UPDATE " . $this->invoiceOrderTable . "
-				SET order_receiver_name = '" . $POST['companyName'] . "', order_receiver_address= '" . $POST['address'] . "', order_total_before_tax = '" . $POST['subTotal'] . "', order_total_tax = '" . $POST['taxAmount'] . "', order_tax_per = '" . $POST['taxRate'] . "', order_total_after_tax = '" . $POST['totalAftertax'] . "', order_amount_paid = '" . $POST['amountPaid'] . "', order_total_amount_due = '" . $POST['amountDue'] . "', reference = '" . $POST['reference'] . "', deliverynote =  '" . $POST['deliverynote'] . "', gst =  '" . $POST['gst'] . "', mobile =  '" . $POST['mobile'] . "', email =  '" . $POST['email'] . "', statecode =  '" . $POST['statecode'] . "', datatype =  '" . $POST['datatype'] . "', declaration =  '" . $POST['declaration'] . "', order_date =  '" . $newDate . "', termstrue =  '" . (int)$POST['termstrue'] . "', terms =  '" . $POST['terms'] . "', enable_igst =  '" . (int)$POST['enable_igst'] . "', enable_csgst =  '" . (int)$POST['enable_csgst'] . "' WHERE user_id = '" . $POST['userId'] . "' AND order_id = '" . $POST['invoiceId'] . "'";
+				SET order_receiver_name = '" . addslashes($POST['companyName']) . "', order_receiver_address= '" . addslashes($POST['address']) . "', order_total_before_tax = '" . $POST['subTotal'] . "', order_total_tax = '" . $POST['taxAmount'] . "', order_tax_per = '" . $POST['taxRate'] . "', order_total_after_tax = '" . $POST['totalAftertax'] . "', order_amount_paid = '" . $POST['amountPaid'] . "', order_total_amount_due = '" . $POST['amountDue'] . "', reference = '" . $POST['reference'] . "', deliverynote =  '" . $POST['deliverynote'] . "', gst =  '" . $POST['gst'] . "', mobile =  '" . $POST['mobile'] . "', email =  '" . $POST['email'] . "', statecode =  '" . $POST['statecode'] . "', datatype =  '" . $POST['datatype'] . "', declaration =  '" . addslashes($POST['declaration']) . "', order_date =  '" . $newDate . "', termstrue =  '" . (int)$POST['termstrue'] . "', terms =  '" . addslashes($POST['terms']) . "', enable_igst =  '" . (int)$POST['enable_igst'] . "', enable_csgst =  '" . (int)$POST['enable_csgst'] . "' WHERE user_id = '" . $POST['userId'] . "' AND order_id = '" . $POST['invoiceId'] . "'";
             mysqli_query($this->dbConnect, $sqlInsert);
         }
         $this->deleteInvoiceItems($POST['invoiceId']);
         for ($i = 0; $i < count($POST['productCode']); $i++) {
             $sqlInsertItem = "
 				INSERT INTO " . $this->invoiceOrderItemTable . "(order_id, item_code, item_name, order_item_quantity, order_item_price, order_item_final_amount, order_item_cgst, order_item_sgst, order_item_igst)
-				VALUES ('" . $POST['invoiceId'] . "', '" . $POST['productCode'][$i] . "', '" . $POST['productName'][$i] . "', '" . $POST['quantity'][$i] . "', '" . $POST['price'][$i] . "', '" . $POST['total'][$i] . "', '" . $POST['cgst'][$i] . "', '" . $POST['sgst'][$i] . "', '" . $POST['igst'][$i] . "')";
+				VALUES ('" . $POST['invoiceId'] . "', '" . $POST['productCode'][$i] . "', '" . addslashes($POST['productName'][$i]) . "', '" . $POST['quantity'][$i] . "', '" . $POST['price'][$i] . "', '" . $POST['total'][$i] . "', '" . $POST['cgst'][$i] . "', '" . $POST['sgst'][$i] . "', '" . $POST['igst'][$i] . "')";
             mysqli_query($this->dbConnect, $sqlInsertItem);
         }
     }

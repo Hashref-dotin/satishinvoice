@@ -84,7 +84,7 @@ $output = '<html>
  
 	<header>
 		<div style="width:100%;height:100px;text-align:center;font-family:Helvetica !important">
-		<h1 style="color:#1B4BA7">Satish Engineering Company</h1>
+		<h1 style="color:#661A94">Satish Engineering Company</h1>
 		<p style="font-size:14px">B-69, Peenya III Stage, Peenya Industrial Estate, Bengaluru - 560 058.</p>
 		<p style="font-size:14px">E-mail: info@satishengineering.com</p>
 		<p style="font-size:14px">Phone: (0091-80) 2951 6306, GST :29ACHPS2669E1Z7</p>
@@ -106,7 +106,7 @@ $output .= '<main>
 					<tr>
 						<td width="45%">
 						<span style="font-size:14px;font-weight:bold">' . $invoiceValues['order_receiver_name'] . '</span><br />
-						' . $invoiceValues['order_receiver_address'] . '<br />';
+						' . nl2br($invoiceValues['order_receiver_address']) . '<br />';
 if (!empty($invoiceValues['mobile'])) {
     $output .= 'Mobile : ' . $invoiceValues['mobile'] . '<br />';
 }
@@ -199,7 +199,7 @@ foreach ($invoiceItems as $invoiceItem) {
 	
     $output .= '<tr>
 					<td valign="top" width="5%" algin="center" style="border-right: 0.5px solid #000;">' . $count . '</td>
-					<td valign="top" width="46%" style="border-right: 0.5px solid #000;">' . trim($invoiceItem["item_name"]) . '<br/><br/><br/>' . '</td>
+					<td valign="top" width="46%" style="border-right: 0.5px solid #000;">' . nl2br($invoiceItem["item_name"]) . '<br/><br/><br/>' . '</td>
 					<td valign="top" width="10%" style="text-align:center;border-right: 0.5px solid #000;">' . $invoiceItem["item_code"] . '</td>
 					<td valign="top" width="8%" align="center" style="border-right: 0.5px solid #000;">' . (int) $invoiceItem["order_item_quantity"] . '</td>
 					<td valign="top" width="17%" align="center" style="border-right: 0.5px solid #000;">' . currencyformat($invoiceItem["order_item_price"]) . '</td>
@@ -227,10 +227,14 @@ $output .= '<tr>
 				<th align="right" colspan="5"><strong>Taxable value</strong></th>
 				<th align="right">' . currencyformat($totaltaxable) . '</th>
 				</tr>';
+if($nameshow != '')
+{
 				$output .= '<tr>
 				<th align="right" colspan="2">'.$nameshow.'</th>
 				<th align="right" colspan="4" >' .$taxtext . '</th>
 				</tr>';
+
+}
 				$output .= '<tr>
 				<th align="right" colspan="5"><strong>Total</strong></th>
 				<th align="right"><strong>' . currencyformat($totalpayable) . '</strong></th>
@@ -358,9 +362,10 @@ if ($istaxisapplicable) {
 if($invoiceValues['termstrue'] && trim($invoiceValues['terms']) !='')
 {
 	$output .= '
-	<div style="font-size:10.5px;float:left;margin-left:30px;">
-	<p><strong style="font-weight:bold">Terms and conditions</strong></p>
-	<pre style="font-size:10.5px;font-family:"Arial,sans-serif; word-wrap: break-word;">' . $invoiceValues['terms'] . '</pre>
+	<div style="font-size:10.5px;float:left;margin-left:30px;text-align:left !important">
+	<p><strong style="font-weight:bold;font-size:12px;">Terms and conditions</strong></p>
+	<p style="font-size:10.5px;font-family:"Arial,sans-serif;">' . nl2br($invoiceValues['terms']) . '</p>
+	<br/>
 	</div>
 ';
 }
@@ -368,17 +373,14 @@ if($invoiceValues['termstrue'] && trim($invoiceValues['terms']) !='')
 $output .= '
 <div style="font-size:10.5px;margin-left:30px;width:130px;text-align:center">
 	<p><span>For SSV ENGINEERING</span></p>
-	<p><img src="images/signature.jpg" style="width:80px"/></p>
+	<p><img src="images/signature.png" style="width:80px"/></p>
 	<p>Authorised Signatory</p>
 </div>
 
-<table cellpadding="0" cellspacing="0" border="0"  align="center" width="90%">
-	<tr>
-		<td width="75%" align="left">
-			<pre style="font-size:10.5px;font-family:"Arial,sans-serif; word-wrap: break-word;">' . $invoiceValues['declaration'] . '</pre>
-		</td>
-	</tr>
-</table>
+<div style="font-size:10.5px;margin-left:30px;text-align:left;">
+<br/>
+			<p style="font-size:10.5px;font-family:"Arial,sans-serif;">' . nl2br($invoiceValues['declaration']) . '</p>
+		</div>
 </div>
 </main>
 </html>';

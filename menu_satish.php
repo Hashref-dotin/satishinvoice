@@ -9,13 +9,7 @@
 </li>
 <?php 
 if($_SESSION['userid']) { ?>
-	<li class="dropdown">
-		<button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">My account
-		<span class="caret"></span></button>
-		<ul class="dropdown-menu">
-			<li><a href="action.php?action=logout">Logout</a></li>		  
-		</ul>
-	</li>
+	<?php include 'common_menu.php'; ?>
 <?php } ?>
 </ul>
 <br /><br /><br /><br />

@@ -156,12 +156,13 @@ if (!empty($errorMsg) && isset($_POST)) {
 				<div class="col-xs-12">
 				<div class="form-group">
 					<label>Declaration</label>
-					<?php $declaration = 'Declaration:' . PHP_EOL . '
-1. Interest @24% will be charged on payment not made with in 15 days.' . PHP_EOL . '
-2. We are not responsible for the loss occur due to theft or fire after sale.' . PHP_EOL . '
-3. All disputes subject to Bangalore Jurisdiction only.' . PHP_EOL . '
-4. Goods once sold will not be taken back.' . PHP_EOL . '
-5. The customer has seen the machine before buying. Any mistakes in machine description and details are reserve.' . PHP_EOL . ' Satish Engineering (seller) does not give any guarantee or takes any responsibility on used machines, it will be bought as where it is condition.';?>
+					<?php $declaration = 'Declaration:
+1. Interest @24% will be charged on payment not made with in 15 days.
+2. We are not responsible for the loss occur due to theft or fire after sale.
+3. All disputes subject to Bangalore Jurisdiction only.
+4. Goods once sold will not be taken back.
+5. The customer has seen the machine before buying. Any mistakes in machine description and details are reserve.
+Satish Engineering (seller) does not give any guarantee or takes any responsibility on used machines, it will be bought as where it is condition.';?>
 					<textarea class="form-control" rows="6" class="col-md-12"  name="declaration" id="declaration" placeholder="Declaration" required><?php echo !empty($_POST['declaration']) ? $_POST['declaration'] : $declaration; ?></textarea>
 					</div>
 				</div>
@@ -171,7 +172,11 @@ if (!empty($errorMsg) && isset($_POST)) {
 				<div class="form-group">
 					<label>Terms and Conditions</label>
 					<input type="checkbox" name="termstrue" value="1" id="termstrue"  <?php echo ($_POST['termstrue'] == 1) ? 'checked' : ''; ?>/>
-					<textarea class="form-control" rows="3" class="col-md-12"  name="terms" id="terms" placeholder="Terms and conditions" maxlength="180" <?php echo ($_POST['termstrue'] != 1) ? 'style="display:none"' : ''; ?> ><?php echo $_POST['terms']; ?></textarea>
+					<?php $terms = '1) GST at 18% extra
+					2) Price are exworks Satish Engineering
+					3) Machine delivery - After 100% Payment
+					';?>
+					<textarea class="form-control" rows="3" class="col-md-12"  name="terms" id="terms" placeholder="Terms and conditions" maxlength="160" <?php echo ($_POST['termstrue'] != 1) ? 'style="display:none"' : ''; ?> ><?php echo !empty($_POST['terms']) ? $_POST['terms'] : $terms; ?></textarea>
 					<small iclass="form-text text-muted">Not more than 160 characters.</small><small id="showtotalterms"></small>
 					</div>
 				</div>

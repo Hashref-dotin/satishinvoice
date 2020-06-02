@@ -85,28 +85,16 @@ if (!empty($errorMsg) && isset($_POST)) {
 						<label>Mobile Number</label>
 							<input type="text" class="form-control" name="mobile" id="mobile" placeholder="Mobile Number" autocomplete="off" required value="<?php echo $_POST['mobile']; ?>" maxlength="12">
 						</div>
-						<div class="form-group">
-						<label>Email ID</label>
-							<input type="text" class="form-control" name="email" id="email" placeholder="Email Id" autocomplete="off" required value="<?php echo $_POST['email']; ?>">
-						</div>
-						
-					<div class="form-check invisible">
-							<input type="checkbox" class="form-check-input" name="enable_csgst" id="enable_csgst" autocomplete="off" value="1">
-							<label class="form-check-label">Enable TAX</label>
+					<div class="form-group">
+					<label>Email ID</label>
+						<input type="text" class="form-control" name="email" id="email" placeholder="Email Id" autocomplete="off" required value="<?php echo $_POST['email']; ?>">
 					</div>
 					<div class="form-check">
 							<input type="checkbox" class="form-check-input" name="enable_igst" id="enable_igst" autocomplete="off" value="1">
 							<label class="form-check-label">Enable TAX</label>
 					</div>
 
-					<div class="form-group">
-					<label>Reference ID</label>
-						<input type="text" class="form-control" name="reference" id="reference" placeholder="Reference ID" autocomplete="off" required value="<?php echo $_POST['reference']; ?>">
-					</div>
-					<div class="form-group">
-					<label>Delivery Note</label>
-						<input type="text" class="form-control" name="deliverynote" id="deliverynote" placeholder="Delivery Note" autocomplete="off" required value="<?php echo $_POST['deliverynote']; ?>">
-					</div>
+					
 					<div class="form-group">
 					<label>Invoice Date</label>
 						<input type="text" class="form-control" name="order_date" id="order_date" placeholder="Invoiced Date(d/m/yyyy)" autocomplete="off" required value="<?php echo $_POST['order_date']; ?>">
@@ -205,6 +193,22 @@ if (!empty($errorMsg) && isset($_POST)) {
 			</div>
 			<div class="clearfix"></div>
 		</div>
+
+		<div class="invisible">
+							<input type="checkbox" class="form-check-input" name="enable_csgst" id="enable_csgst" autocomplete="off" value="1">
+							<label class="form-check-label">Enable TAX</label>
+					</div>
+					
+					<div class="invisible">
+						<label>Reference ID</label>
+						<input type="text" class="form-control" name="reference" id="reference" placeholder="Reference ID" autocomplete="off" required value="<?php echo $_POST['reference']; ?>">
+					</div>
+					<div class="invisible">
+						<label>Delivery Note</label>
+							<input type="text" class="form-control" name="deliverynote" id="deliverynote" placeholder="Delivery Note" autocomplete="off" required value="<?php echo $_POST['deliverynote']; ?>">
+					</div>
+
+					
 	</form>
 </div>
 </div>

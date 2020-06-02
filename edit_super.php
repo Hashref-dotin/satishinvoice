@@ -17,6 +17,13 @@ if (!empty($_GET['update_id']) && $_GET['update_id']) {
     $invoiceValues = $invoice->getInvoice($_GET['update_id']);
     $invoiceItems = $invoice->getInvoiceItems($_GET['update_id']);
 }
+include 'SMS.php';
+if(isset($_POST['send_sms']))
+{
+	$sms = new SMS();
+	$message = $sms->sendSMS($invoice->invoiceOrderTable,$_GET['update_id']);
+}
+
 ?>
 <title><?php echo WEBPAGE_TITLE; ?></title>
 
@@ -81,7 +88,7 @@ if (!empty($errormessage)) {
 							<textarea class="form-control" rows="3" name="address" id="address" placeholder="Your Address"><?php echo $invoiceValues['order_receiver_address']; ?></textarea>
 					</div>
 					<div class="form-group">
-						<label>TAX ID</label>
+						<label>Tax id</label>
 							<input type="text" class="form-control" name="gst" id="gst" placeholder="TAX ID" autocomplete="off" required value="<?php echo $invoiceValues['gst']; ?>">
 					</div>
 					<div class="form-group">
@@ -93,20 +100,8 @@ if (!empty($errormessage)) {
 							<input type="text" class="form-control" name="email" id="email" placeholder="Email Id" autocomplete="off" required value="<?php echo $invoiceValues['email']; ?>">
 					</div>
 			
-					<div class="form-group">
-						<label>Reference ID</label>
-						<input type="text" class="form-control" name="reference" id="reference" placeholder="Reference ID" autocomplete="off" required value="<?php echo $invoiceValues['reference']; ?>">
-					</div>
-					
-					<div class="form-check invisible">
-							<input type="checkbox" class="form-check-input" name="enable_csgst" id="enable_csgst" autocomplete="off" value="1" <?php echo ($invoiceValues['enable_csgst'] == 1) ? 'checked' : ''; ?>>
-							<label class="form-check-label">Enable SGST/CGST</label>
-							<?php  $csgstvisible = '';
-							if($invoiceValues['enable_csgst'] == 0) {
-								$csgststyle = 'style="display:none"';
-							}  ?>
-					</div>
-					<div class="form-check">
+				
+					<div class="form-check ">
 							<input type="checkbox" class="form-check-input" name="enable_igst" id="enable_igst" autocomplete="off" value="1" <?php echo ($invoiceValues['enable_igst'] == 1) ? 'checked' : ''; ?>><label class="form-check-label">Enable TAX</label>
 							<?php  $igstvisible = '';
 							if($invoiceValues['enable_igst'] == 0) {
@@ -114,10 +109,7 @@ if (!empty($errormessage)) {
 							}  ?>
 					</div>
 
-					<div class="form-group">
-						<label>Delivery Note</label>
-						<input type="text" class="form-control" name="deliverynote" id="deliverynote" autocomplete="off" value="<?php echo $invoiceValues['deliverynote']; ?>" placeholder="Delivery Note">
-					</div>
+					
 
 					<div class="form-group">
 					<label>Invoice Date</label>
@@ -135,8 +127,8 @@ if (!empty($errormessage)) {
 							<th style="display:none">HSN/SAC</th>
 							<th width="5%">Quantity</th>
 							<th width="15%">Price</th>
-							<th width="10%" class="cgst_text <?php echo $csgstvisible;?>" <?php echo $csgststyle;?>>CGST</th>
-							<th width="10%" class="sgst_text <?php echo $csgstvisible;?>" <?php echo $csgststyle;?>>SGST</th>
+							<th width="10%" class="cgst_text invisible" style="display:none">CGST</th>
+							<th width="10%" class="sgst_text invisible" style="display:none">SGST</th>
 							<th width="10%" class="igst_text <?php echo $igstvisible;?>" <?php echo $igststyle;?>>TAX</th>
 							<th width="15%">Total</th>
 							</tr>
@@ -149,11 +141,11 @@ foreach ($invoiceItems as $invoiceItem) {
 								<td><input class="itemRow" type="checkbox"></td>
 
 								<td><textarea class="form-control" rows="6" class="col-md-12"  name="productName[]" id="productName_<?php echo $count; ?>" placeholder="Product Name" required><?php echo $invoiceItem["item_name"]; ?></textarea></td>
-								<td><input type="text" style="display:none" value="<?php echo $invoiceItem["item_code"]; ?>" name="productCode[]" id="productCode_<?php echo $count; ?>" class="form-control" autocomplete="off"></td>
+								<td style="display:none" ><input type="text" value="<?php echo $invoiceItem["item_code"]; ?>" name="productCode[]" id="productCode_<?php echo $count; ?>" class="form-control" autocomplete="off"></td>
 								<td><input type="number" value="<?php echo $invoiceItem["order_item_quantity"]; ?>" name="quantity[]" id="quantity_<?php echo $count; ?>" class="form-control quantity" autocomplete="off"></td>
 								<td><input type="number" value="<?php echo $invoiceItem["order_item_price"]; ?>" name="price[]" id="price_<?php echo $count; ?>" class="form-control price" autocomplete="off"></td>
-								<td class="cgst_text" <?php echo $csgststyle;?>><input type="number" name="cgst[]" value="<?php echo $invoiceItem["order_item_cgst"]; ?>" id="cgst_<?php echo $count; ?>" class="form-control price cgst_input " autocomplete="off"></td>
-								<td class="sgst_text" <?php echo $csgststyle;?>><input type="number" name="sgst[]" value="<?php echo $invoiceItem["order_item_sgst"]; ?>" id="sgst_<?php echo $count; ?>" class="form-control price sgst_input " autocomplete="off"></td>
+								<td class="cgst_text invisible" style="display:none"><input type="number" name="cgst[]" value="<?php echo $invoiceItem["order_item_cgst"]; ?>" id="cgst_<?php echo $count; ?>" class="form-control price cgst_input " autocomplete="off"></td>
+								<td class="sgst_text invisible" style="display:none" ><input type="number" name="sgst[]" value="<?php echo $invoiceItem["order_item_sgst"]; ?>" id="sgst_<?php echo $count; ?>" class="form-control price sgst_input " autocomplete="off"></td>
 								<td class="igst_text" <?php echo $igststyle;?>><input type="number" name="igst[]" value="<?php echo $invoiceItem["order_item_igst"]; ?>" id="igst_<?php echo $count; ?>" class="form-control price igst_input" autocomplete="off"></td>
 								<td><input type="number" value="<?php echo $invoiceItem["order_item_final_amount"]; ?>" name="total[]" id="total_<?php echo $count; ?>" class="form-control total" autocomplete="off" readonly></td>
 
@@ -183,7 +175,7 @@ foreach ($invoiceItems as $invoiceItem) {
 				<div class="form-group">
 					<label>Terms and Conditions</label>
 					<input type="checkbox" name="termstrue" value="1" id="termstrue" <?php echo ($invoiceValues['termstrue'] == 1) ? 'checked' : ''; ?> />
-					<textarea class="form-control" rows="6" class="col-md-12"  name="terms" id="terms"  <?php echo ($invoiceValues['termstrue'] != 1) ? 'style="display:none"' : ''; ?> placeholder="Terms and conditions" maxlength="160"><?php echo $invoiceValues['terms']; ?></textarea>
+					<textarea class="form-control" rows="3" class="col-md-12"  name="terms" id="terms"  <?php echo ($invoiceValues['termstrue'] != 1) ? 'style="display:none"' : ''; ?> placeholder="Terms and conditions" maxlength="160"><?php echo $invoiceValues['terms']; ?></textarea>
 					<small iclass="form-text text-muted">Not more than 160 characters.</small><small id="showtotalterms"></small>
 					</div>
 				</div>
@@ -197,6 +189,7 @@ foreach ($invoiceItems as $invoiceItem) {
 							<input type="hidden" value="<?php echo $invoiceValues['order_id']; ?>" class="form-control" name="invoiceId" id="invoiceId">
 			      			<input data-loading-text="Updating Invoice..." type="submit" name="invoice_btn" value="Save Invoice" class="btn btn-success submit_btn invoice-save-btm">
 							<input data-loading-text="Updating Invoice..." type="submit" name="invoice_btn_stay" value="Save Invoice and Stay" class="btn btn-success submit_btn invoice-save-btm">
+							<input data-loading-text="Send SMS" type="submit" name="send_sms" value="Send SMS" class="btn btn-danger submit_btn invoice-save-btm">
 							<a href="print_super.php?invoice_id=<?php echo $invoiceValues['order_id']; ?>" target="_blank"><button type="button" class="btn btn-primary btn-sm">Print PDF</button></a>
 			      		</div>
 
@@ -228,7 +221,27 @@ foreach ($invoiceItems as $invoiceItem) {
 					</div>
 		      	</div>
 		      	<div class="clearfix"></div>
-	      	</div>
+			  </div>
+			  
+			  <div class="form-group invisible">
+						<label>Delivery Note</label>
+						<input type="text" class="form-control" name="deliverynote" id="deliverynote" autocomplete="off" value="<?php echo $invoiceValues['deliverynote']; ?>" placeholder="Delivery Note">
+					</div>
+
+						
+					<div class="form-check invisible">
+							<input type="checkbox" class="form-check-input" name="enable_csgst" id="enable_csgst" autocomplete="off" value="1" <?php echo ($invoiceValues['enable_csgst'] == 1) ? 'checked' : ''; ?>>
+							<label class="form-check-label">Enable SGST/CGST</label>
+							<?php  $csgstvisible = '';
+							if($invoiceValues['enable_csgst'] == 0) {
+								$csgststyle = 'style="display:none"';
+							}  ?>
+					</div>
+					
+					<div class="form-group invisible">
+						<label>Reference ID</label>
+						<input type="text" class="form-control" name="reference" id="reference" placeholder="Reference ID" autocomplete="off" required value="<?php echo $invoiceValues['reference']; ?>">
+					</div>
 		</form>
     </div>
 </div>

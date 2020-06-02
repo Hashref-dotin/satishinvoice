@@ -17,6 +17,12 @@ if (!empty($_GET['update_id']) && $_GET['update_id']) {
     $invoiceValues = $invoice->getInvoice($_GET['update_id']);
     $invoiceItems = $invoice->getInvoiceItems($_GET['update_id']);
 }
+include 'SMS.php';
+if(isset($_POST['send_sms']))
+{
+	$sms = new SMS();
+	$message = $sms->sendSMS($invoice->invoiceOrderTable,$_GET['update_id']);
+}
 ?>
 <title><?php echo WEBPAGE_TITLE; ?></title>
 
@@ -200,6 +206,7 @@ foreach ($invoiceItems as $invoiceItem) {
 							<input type="hidden" value="<?php echo $invoiceValues['order_id']; ?>" class="form-control" name="invoiceId" id="invoiceId">
 			      			<input data-loading-text="Updating Invoice..." type="submit" name="invoice_btn" value="Save Invoice" class="btn btn-success submit_btn invoice-save-btm">
 							<input data-loading-text="Updating Invoice..." type="submit" name="invoice_btn_stay" value="Save Invoice and Stay" class="btn btn-success submit_btn invoice-save-btm">
+							<input data-loading-text="Send SMS" type="submit" name="send_sms" value="Send SMS" class="btn btn-danger submit_btn invoice-save-btm">
 							<a href="print_satish.php?invoice_id=<?php echo $invoiceValues['order_id']; ?>" target="_blank"><button type="button" class="btn btn-primary btn-sm">Print PDF</button></a>
 			      		</div>
 
