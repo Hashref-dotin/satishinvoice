@@ -60,6 +60,7 @@ class SMS
                 'super_invoice_order'=>'EURO',
             );
 
+            $invoicetype = array('Invoice' => 'Invoice','Proforma' => 'Proforma invoice', 'Quotation' => 'Quotation');
 
             setlocale(LC_MONETARY, 'en_IN');
             $money = money_format('%!i', $company['order_total_after_tax']);
@@ -69,12 +70,13 @@ class SMS
             $smsMessage = str_replace('{COMPANY NAME}',$company['order_receiver_name'],$smsMessage);
             $smsMessage = str_replace('{MOBILE}',$company['mobile'],$smsMessage);
             $smsMessage = str_replace('{PRICE}',$pricesymbol[$table] .''.$removedecimal,$smsMessage);
+            $smsMessage = str_replace('{INVOICETYPE}',$invoicetype[$company['datatype']],$smsMessage);
             
             $tax = (int)$company['enable_igst'] + (int)$company['enable_csgst']; 
 
             if($tax > 0)
             {
-                $smsMessage = str_replace('{TAX}','+Tax.',$smsMessage);
+                $smsMessage = str_replace('{TAX}','+Tax',$smsMessage);
             }
             else
             {
@@ -102,12 +104,11 @@ class SMS
         } 
         $text .= implode('&',$imp);
 
-
         foreach($smsNumbers as $mobile)
         {
-             $smslink = str_replace('{MOBILE_NUMBER}', $mobile, $smslink);
-             $smslink = $smslink . $text;
-             file_get_contents($smslink); 
+             $smslinksend = str_replace('{MOBILE_NUMBER}', $mobile, $smslink);
+             $smslinksend = $smslinksend . $text;
+             file_get_contents($smslinksend); 
         }
         return 'SMS sent successfully';
     }
