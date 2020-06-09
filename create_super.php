@@ -5,7 +5,7 @@ include 'Super.php';
 $invoice = new Invoice();
 $invoice->checkLoggedIn();
 $errorMsg = '';
-
+include 'SMS.php';
 if (!empty($_POST['companyName']) && $_POST['companyName']) {
     if (empty($_POST['order_date']) && !checkDateForm($_POST['order_date'])) {
         $errorMsg = "Invoice date should be valid";
@@ -14,6 +14,8 @@ if (!empty($_POST['companyName']) && $_POST['companyName']) {
         if (!is_numeric($id)) {
             $errorMsg = "Unable to save." . $id;
         } else {
+			$sms = new SMS();
+            $message = $sms->sendSMS($invoice->invoiceOrderTable, $id);
             header("Location:edit_super.php?update_id=" . $id);
         }
     }
