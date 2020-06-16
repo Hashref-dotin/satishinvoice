@@ -1,10 +1,11 @@
 <?php
+include 'src.all.inc';
 class SMS
 {
-    private $host = 'localhost';
-    private $user = 'satish_user';
-    private $password = "3RnyX80k";
-    private $database = "satish_satish_invoice";
+    private $host = DB_HOST;
+    private $user = DB_USER;
+    private $password = DB_PASS;
+    private $database = DB_NAME;
     private $invoiceUserTable = 'invoice_user';
     private $dbConnect = false;
     public function __construct()
@@ -44,6 +45,14 @@ class SMS
         return current($this->getData($sqlQuery));
     }
 
+    public function getTotalAmount($table, $id)
+    {
+        $sqlQuery = "
+        SELECT sum(order_item_price) as `total` FROM `".$table."_item`
+        WHERE order_id = $id";
+        return current($this->getData($sqlQuery));
+    }
+
     public function sendSMS($table, $id)
     {
             $smsData = $this->getsettings();
@@ -62,8 +71,10 @@ class SMS
 
             $invoicetype = array('Invoice' => 'Invoice','Proforma' => 'Proforma invoice', 'Quotation' => 'Quotation');
 
+            $gettotal = $this->getTotalAmount($table, $id);
+            
             setlocale(LC_MONETARY, 'en_IN');
-            $money = money_format('%!i', $company['order_total_after_tax']);
+            $money = money_format('%!i', $gettotal['total']);
             $removedecimal = str_replace('.00', '', $money);
            
 
