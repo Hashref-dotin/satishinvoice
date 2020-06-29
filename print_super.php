@@ -21,7 +21,8 @@ return count($explodedLines);
 
 $translate = array ('Invoice' => 'Rechnung',
 					'Proforma' => 'Proforma - Rechnung',
-				'Quoatation'=>'Zitat');
+				'Quoatation'=>'Zitat',
+			'Purchase Order'=>'Bestellung');
 
 $output = '<html>
 <head>

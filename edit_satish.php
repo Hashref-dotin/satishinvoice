@@ -75,6 +75,7 @@ if (!empty($errormessage)) {
 							<option value="Invoice" <?php if ($invoiceValues['datatype'] == 'Invoice') {echo "selected";}?> >Invoice</option>
 							<option value="Proforma"  <?php if ($invoiceValues['datatype'] == 'Proforma') {echo "selected";}?> >Proforma</option>
 							<option value="Quotation"  <?php if ($invoiceValues['datatype'] == 'Quotation') {echo "selected";}?> >Quotation</option>
+							<option value="Purchase Order"  <?php if ($invoiceValues['datatype'] == 'Purchase Order') {echo "selected";}?> >Purchase Order</option>
 						</select>
 					</div>
 						

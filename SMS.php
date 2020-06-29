@@ -69,7 +69,7 @@ class SMS
                 'super_invoice_order'=>'EURO',
             );
 
-            $invoicetype = array('Invoice' => 'Invoice','Proforma' => 'Proforma invoice', 'Quotation' => 'Quotation');
+            $invoicetype = array('Invoice' => 'Invoice','Proforma' => 'Proforma invoice', 'Quotation' => 'Quotation invoice', 'Purchase Order' => 'Purchase Order');
 
             $gettotal = $this->getTotalAmount($table, $id);
             

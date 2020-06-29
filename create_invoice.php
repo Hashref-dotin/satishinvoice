@@ -68,6 +68,7 @@ if (!empty($errorMsg) && isset($_POST)) {
 						<option value="Invoice" <?php if ($_POST['datatype'] == 'Invoice') {echo "selected";}?>>Invoice</option>
 						<option value="Proforma" <?php if ($_POST['datatype'] == 'Proforma') {echo "selected";}?>>Proforma</option>
 						<option value="Quotation" <?php if ($_POST['datatype'] == 'Quotation') {echo "selected";}?>>Quotation</option>
+						<option value="Purchase Order"  <?php if ($_POST['datatype'] == 'Purchase Order') {echo "selected";}?> >Purchase Order</option>
 						</select>
 
 					</div>

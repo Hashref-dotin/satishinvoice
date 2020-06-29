@@ -18,12 +18,7 @@ $start_from = ($page-1) * $limit;
 	  <h2 class="title">Invoice System</h2>
 	  <?php include 'menu.php';?>
     <form action="invoice_list.php" method="POST">
-    <select name="datatype" id="datatype" onchange="this.form.submit()">
-              <option value="">Show All</option>
-							<option value="Invoice" <?php if ($_POST['datatype'] == 'Invoice') {echo "selected";}?> >Invoice</option>
-							<option value="Proforma"  <?php if ($_POST['datatype'] == 'Proforma') {echo "selected";}?> >Proforma</option>
-							<option value="Quotation"  <?php if ($_POST['datatype'] == 'Quotation') {echo "selected";}?> >Quotation</option>
-						</select>
+   
       <table id="data-table" class="table table-condensed table-striped" data-tablename="<?php echo $invoice->invoiceOrderTable;?>">
         <thead>
           <tr>
