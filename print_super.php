@@ -267,9 +267,7 @@ if($invoiceValues['termstrue'] && trim($invoiceValues['terms']) !='')
 
 $output .= '
 <div style="font-size:12px;margin-left:30px;width:130px;text-align:center">
-	<p><span>Für Supertechs</span></p>
-	<p><img src="images/signature.png" style="width:80px"/></p>
-	<p>Zeichnungsberechtigte</p>
+	<p><img src="images/super_sign.png" style="width:100px"/></p>
 </div>
 
 <div style="font-size:10.5px;margin-left:30px;text-align:left">
