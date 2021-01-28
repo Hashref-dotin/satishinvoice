@@ -375,7 +375,7 @@ if($invoiceValues['termstrue'] && trim($invoiceValues['terms']) !='')
 }
 
 $output .= '
-<div style="font-size:10.5px;margin-left:30px;width:130px;text-align:center !important">
+<div style="font-size:10.5px;margin-left:30px;width:130px;text-align:center !important;clear:both"> 
 <p style="text-align:center !important"><img src="images/signature.png" style="width:100px;"/></p>
 </div>
 

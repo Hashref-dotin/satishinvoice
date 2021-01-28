@@ -266,7 +266,8 @@ if($invoiceValues['termstrue'] && trim($invoiceValues['terms']) !='')
 }
 
 $output .= '
-<div style="font-size:12px;margin-left:30px;width:130px;text-align:center">
+<div style="font-size:12px;margin-left:30px;width:130px;text-align:center;clear:both">
+
 	<p><img src="images/super_sign.png" style="width:100px"/></p>
 </div>
 

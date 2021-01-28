@@ -116,6 +116,15 @@ else
 						<label>Mobile Number 4</label>
 							<input type="text" class="form-control" name="smsusers[]" placeholder="Mobile Number" autocomplete="off" required value="<?php echo $mobilesnum[3];?>" maxlength="10">
 					</div>
+					<div class="form-group">
+						<label>Mobile Number 5</label>
+							<input type="text" class="form-control" name="smsusers[]" placeholder="Mobile Number" autocomplete="off" required value="<?php echo $mobilesnum[4];?>" maxlength="10">
+					</div>
+					<div class="form-group">
+						<label>Mobile Number 6</label>
+							<input type="text" class="form-control" name="smsusers[]" placeholder="Mobile Number" autocomplete="off" required value="<?php echo $mobilesnum[5];?>" maxlength="10">
+					</div>
+
 				
 					<div class="form-group">
 						<label>Delivery Message</label>

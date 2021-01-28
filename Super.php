@@ -181,9 +181,9 @@ class Invoice
 function currencyformat($amount, $symbol = true)
 {
     if ($symbol) {
-        setlocale(LC_MONETARY, 'en_IN');
+        setlocale(LC_MONETARY, 'de_DE');
         $money = money_format('%!i', $amount);
-        $removedecimal = str_replace('.00', '', $money);
+        $removedecimal = str_replace('', '', $money);
         return '&#8364; '.$removedecimal;
     } else {
         return (float) $amount;
