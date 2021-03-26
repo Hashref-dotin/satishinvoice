@@ -6,8 +6,8 @@ $invoice = new Invoice();
 $invoice->checkLoggedIn();
 $errorMsg = '';
 include 'SMS.php';
-if (!empty($_POST['companyName']) && $_POST['companyName']) {
-    if (empty($_POST['order_date']) && !checkDateForm($_POST['order_date'])) {
+if (!empty($_POST['companyName']) && !empty($_POST['mobile']) && !empty($_POST['email'])) {
+	if (empty($_POST['order_date']) && !checkDateForm($_POST['order_date'])) {
         $errorMsg = "Invoice date should be valid";
     } else {
         $id = $invoice->saveInvoice($_POST);
@@ -19,8 +19,8 @@ if (!empty($_POST['companyName']) && $_POST['companyName']) {
             header("Location:edit_satish.php?update_id=" . $id);
         }
     }
-} else if (isset($_POST['companyName'])) {
-    $errorMsg = "Input error fields.";
+} else if (empty($_POST['companyName'])  || empty($_POST['mobile']) || empty($_POST['email'])) {
+    $errorMsg = "Input error fields. Check company name/email/mobile fields.";
 }
 
 ?>
