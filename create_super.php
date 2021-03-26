@@ -163,7 +163,8 @@ if (!empty($errorMsg) && isset($_POST)) {
 				<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
 					<br>
 					<div class="form-group">
-						<input type="hidden" value="<?php echo $_SESSION['userid']; ?>" class="form-control" name="userId">
+						<input type="hidden" value="<?php echo $_SESSION['userid']; ?>" class="form-control" name="userId">					
+						<input type="hidden" value="Super" class="form-control" id="whoisuser" name="whoisuser">
 						<input data-loading-text="Saving Invoice..." type="submit" name="invoice_btn" value="Save Invoice" class="btn btn-success submit_btn invoice-save-btm">
 					</div>
 

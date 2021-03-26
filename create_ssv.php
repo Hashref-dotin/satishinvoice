@@ -189,6 +189,7 @@ Satish Engineering (seller) does not give any guarantee or takes any responsibil
 					<br>
 					<div class="form-group">
 						<input type="hidden" value="<?php echo $_SESSION['userid']; ?>" class="form-control" name="userId">
+						<input type="hidden" value="Ssv" class="form-control" id="whoisuser" name="whoisuser">
 						<input data-loading-text="Saving Invoice..." type="submit" name="invoice_btn" value="Save Invoice" class="btn btn-success submit_btn invoice-save-btm">
 					</div>
 

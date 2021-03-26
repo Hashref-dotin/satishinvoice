@@ -120,10 +120,8 @@ class Invoice
 
         if (!$getcount) {
             $sqlQuery = "SELECT * FROM " . $this->invoiceOrderTable . "";
-
         } else {
             $sqlQuery = "SELECT count(order_id) as `count` FROM " . $this->invoiceOrderTable . "";
-
         }
 
         if ($type != "") {
@@ -183,6 +181,19 @@ class Invoice
         $sqlQuery = "SELECT * FROM invoice_user";
         return $this->getData($sqlQuery);
     }
+
+    public function searchCompany($keyword)
+    {
+        if (!empty($keyword)) {
+            $sqlQuery = "
+        SELECT order_id as id, order_receiver_name as label, order_receiver_name as `value` , order_receiver_address, gst, email, mobile, statecode
+        FROM " . $this->invoiceOrderTable . "
+        WHERE order_receiver_name like '%" . $keyword . "%' group by order_receiver_name";
+            return $this->getData($sqlQuery);
+        } else {
+            return array();
+        }
+    }
 }
 function currencyformat($amount, $symbol = true)
 {
@@ -195,7 +206,6 @@ function currencyformat($amount, $symbol = true)
     } else {
         return (int) $amount;
     }
-
 }
 function inWords($number)
 {
@@ -207,7 +217,8 @@ function inWords($number)
         '11' => 'eleven', '12' => 'twelve', '13' => 'thirteen', '14' => 'fouteen', '15' => 'fifteen',
         '16' => 'sixteen', '17' => 'seventeen', '18' => 'eighteen', '19' => 'nineteen', '20' => 'twenty',
         '30' => 'thirty', '40' => 'fourty', '50' => 'fifty', '60' => 'sixty', '70' => 'seventy',
-        '80' => 'eighty', '90' => 'ninty');
+        '80' => 'eighty', '90' => 'ninty'
+    );
 
     //First find the length of the number
     $number_length = strlen($number);
@@ -236,7 +247,6 @@ function inWords($number)
                 $number_array[$j] = intval($number_array[$i]) * 10 + $number_array[$j];
                 $number_array[$i] = 0;
             }
-
         }
     }
 
@@ -247,14 +257,25 @@ function inWords($number)
         } else {
             $value = $number_array[$i];
         }
-        if ($value != 0) {$number_to_words_string .= $words["$value"] . " ";}
-        if ($i == 1 && $value != 0) {$number_to_words_string .= "Crores ";}
-        if ($i == 3 && $value != 0) {$number_to_words_string .= "Lakhs ";}
-        if ($i == 5 && $value != 0) {$number_to_words_string .= "Thousand ";}
-        if ($i == 6 && $value != 0) {$number_to_words_string .= "Hundred &amp; ";}
-
+        if ($value != 0) {
+            $number_to_words_string .= $words["$value"] . " ";
+        }
+        if ($i == 1 && $value != 0) {
+            $number_to_words_string .= "Crores ";
+        }
+        if ($i == 3 && $value != 0) {
+            $number_to_words_string .= "Lakhs ";
+        }
+        if ($i == 5 && $value != 0) {
+            $number_to_words_string .= "Thousand ";
+        }
+        if ($i == 6 && $value != 0) {
+            $number_to_words_string .= "Hundred &amp; ";
+        }
     }
-    if ($number_length > 9) {$number_to_words_string = "Sorry This does not support more than 99 Crores";}
+    if ($number_length > 9) {
+        $number_to_words_string = "Sorry This does not support more than 99 Crores";
+    }
     return ucwords(strtolower($number_to_words_string) . " Only.");
 }
 

@@ -177,6 +177,19 @@ class Invoice
         $this->deleteInvoiceItems($invoiceId);
         return 1;
     }
+
+    public function searchCompany($keyword)
+    {
+        if (!empty($keyword)) {
+            $sqlQuery = "
+        SELECT order_id as id, order_receiver_name as label, order_receiver_name as `value` , order_receiver_address, gst, email, mobile, statecode
+        FROM " . $this->invoiceOrderTable . "
+        WHERE order_receiver_name like '%" . $keyword . "%' group by order_receiver_name";
+            return $this->getData($sqlQuery);
+        } else {
+            return array();
+        }
+    }
 }
 function currencyformat($amount, $symbol = true)
 {

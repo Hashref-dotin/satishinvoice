@@ -72,9 +72,9 @@ if (!empty($errorMsg) && isset($_POST)) {
 						</select>
 
 					</div>
-					<div class="form-group">
+					<div class="form-group ui-widget">
 					<label>Company Name (or) Purchase Name</label>
-						<input type="text" class="form-control" name="companyName" id="companyName" placeholder="Company Name" autocomplete="off" required value="<?php echo $_POST['companyName']; ?>">
+						<input type="text" class="form-control" name="companyName" id="companyName" placeholder="Company Name" required value="<?php echo $_POST['companyName']; ?>">
 					</div>
 					<div class="form-group">
 					<label>Address</label>
@@ -189,6 +189,7 @@ Satish Engineering (seller) does not give any guarantee or takes any responsibil
 					<br>
 					<div class="form-group">
 						<input type="hidden" value="<?php echo $_SESSION['userid']; ?>" class="form-control" name="userId">
+						<input type="hidden" value="Invoice" class="form-control" id="whoisuser" name="whoisuser">
 						<input data-loading-text="Saving Invoice..." type="submit" name="invoice_btn" value="Save Invoice" class="btn btn-success submit_btn invoice-save-btm">
 					</div>
 
