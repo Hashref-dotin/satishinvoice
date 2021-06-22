@@ -280,7 +280,7 @@ $output .= '
 </html>';
 
 // create pdf of invoice
-$invoiceFileName = 'Invoice-' . $invoiceValues['order_id'] . '.pdf';
+$invoiceFileName = $translate[$invoiceValues['datatype']] . '-' . invoicenumber($invoiceValues['invoice_id']) . '.pdf';
 require_once 'dompdf/src/Autoloader.php';
 Dompdf\Autoloader::register();
 use Dompdf\Dompdf;

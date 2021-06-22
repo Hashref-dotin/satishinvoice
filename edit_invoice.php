@@ -124,6 +124,20 @@ if (!empty($errormessage)) {
 								$igststyle = 'style="display:none"';
 							}  ?>
 					</div>
+					<div class="form-check">
+						<br/>
+					<label>Select bank details on Invoice</label>
+					</div>
+					
+					<div class="form-check">
+							<input type="checkbox" class="form-check-input" name="bankcan" id="enable_bankcan" autocomplete="off" value="1" <?php echo ($invoiceValues['bankcan'] == 1) ? 'checked' : ''; ?>>
+							<label class="form-check-label">Canara bank</label>
+					</div>
+
+					<div class="form-check">
+							<input type="checkbox" class="form-check-input" name="bankkan" id="enable_bankkan" autocomplete="off" value="1" <?php echo ($invoiceValues['bankkan'] == 1) ? 'checked' : ''; ?>>
+							<label class="form-check-label">Karnataka bank</label>
+					</div>
 
 					<div class="form-group">
 						<label>Delivery Note</label>

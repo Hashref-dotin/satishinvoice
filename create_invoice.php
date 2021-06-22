@@ -106,6 +106,22 @@ if (!empty($errorMsg) && isset($_POST)) {
 							<label class="form-check-label">Enable IGST</label>
 					</div>
 
+					<div class="form-check">
+						<br/>
+					<label>Select bank details on Invoice</label>
+					</div>
+					
+					<div class="form-check">
+							<input type="checkbox" class="form-check-input" name="bankcan" id="enable_bankcan" autocomplete="off" value="1" >
+							<label class="form-check-label">Canara bank</label>
+					</div>
+
+					<div class="form-check">
+							<input type="checkbox" class="form-check-input" name="bankkan" id="enable_bankkan" autocomplete="off" value="1">
+							<label class="form-check-label">Karnataka bank</label>
+					</div>
+
+
 					<div class="form-group">
 					<label>Reference ID</label>
 						<input type="text" class="form-control" name="reference" id="reference" placeholder="Reference ID" autocomplete="off" required value="<?php echo $_POST['reference']; ?>">

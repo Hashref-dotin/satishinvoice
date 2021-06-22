@@ -84,13 +84,19 @@ $output = '<html>
 
 	<footer>
 		<table cellpadding="0" cellspacing="0" border="0"  align="center" width="100%" style="font-size:10.5px;color:#000">
-			<tr>
-				<td width="25%" valign="top"><strong style="color:#2E2586">Bank Details</strong>
+			<tr>';
+			if ($invoiceValues['bankkan'] == 1) {
+				$output .= '<td width="25%" valign="top"><strong style="color:#2E2586">Bank Details</strong>
 					<br/>Karnataka Bank,<br/>Mahalakshmipura<br/>A/c No: 1122 000 100 0461 01<br/>IFSC: KARB 0000 112<br/>MICR: 560052032</td>
-				<td width="25%" valign="top">
+					';
+			}
+			if ($invoiceValues['bankcan'] == 1) {
+					$output .= '<td width="25%" valign="top">
 					<strong style="color:#2E2586">Bank Details</strong><br/>Canara Bank,<br/>Vijayanagara<br/>A/c No: 1146 285 000 003<br/>IFSC: CNRB 0001 146<br/>MICR: 560015062
 				</td>
-				<td width="25%" valign="top">
+				';
+			}
+				$output .= '<td width="25%" valign="top">
 					<strong style="color:#2E2586">Regd. address</strong><br/>B69/A, 3rd Stage,<br/>Peenya Industrial Estate,<br/>Bangalore - 560058.<br/><strong style="color:#2E2586">Warehouse:</strong> 553, 5<sup>th</sup> Main,<br/>Peenya 2<sup>nd</sup> Stage<br/>Bangalore - 560058.
 				</td>
 				<td width="25%" valign="top">
@@ -388,7 +394,7 @@ $output .= '
 </html>';
 
 // create pdf of invoice
-$invoiceFileName = 'Invoice-' . $invoiceValues['order_id'] . '.pdf';
+$invoiceFileName =  $invoiceValues['datatype'] . '-' . invoicenumber($invoiceValues['invoice_id']) . '.pdf';
 require_once 'dompdf/src/Autoloader.php';
 Dompdf\Autoloader::register();
 use Dompdf\Dompdf;

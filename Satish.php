@@ -61,16 +61,30 @@ class Invoice
 
     public function getlastinc($type, $date)
     {
-        $invoiceyear =  date("Y", strtotime($date));
-        $sqlQuery = "SELECT max(invoice_id) as maxid FROM " . $this->invoiceOrderTable . "
-        WHERE datatype='" . $type . "' and year(order_date) = ". $invoiceyear;
-        $nextsql = current($this->getData($sqlQuery));
-        $curid = (int)$nextsql['maxid'];
-        if($curid == 0)
+        $invoiceyear = date( 'Y', strtotime( $date ) );
+        $sqlQuery = 'SELECT max(invoice_id) as maxid FROM ' . $this->invoiceOrderTable . "
+        WHERE datatype='" . $type . "' and year(order_date) = " . $invoiceyear;
+        $nextsql = current( $this->getData( $sqlQuery ) );
+        $curid = ( int ) $nextsql['maxid'];
+        $currentmonth = date( 'm' );
+
+        //decide prefix first
+        if ( $currentmonth > 3 )
         {
-            $curid = substr( $invoiceyear, -2) . '000';
+            $prefix = date( 'Y' ) + 1;
+            $prefix = substr( $prefix, -2 );
+        } else {
+            $prefix = substr( date( 'Y' ), -2 );
         }
-        $nextid = (int)$curid + 1;
+
+        $previd = $prefix . '000'; //22000
+        
+        if($previd > $curid)
+        {
+            $curid = $previd;
+        }
+
+        $nextid = ( int ) $curid + 1;
 
         return $nextid;
     }
