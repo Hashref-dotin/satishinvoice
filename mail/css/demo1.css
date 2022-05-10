@@ -1,0 +1,19 @@
+@import url('reset.css');
+
+/* General Demo Style */
+
+.clr{
+	clear:both;
+}
+h1, h5{
+	margin:15px;
+	font-size:24px;
+	color:#000;
+	font-family:Arial, Helvetica, sans-serif;	
+	text-align:left;
+}
+h1 span, h5{
+	font-size:18px;
+	display:block;
+	color:#60817a;
+}

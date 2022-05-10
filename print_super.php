@@ -90,8 +90,7 @@ $output = '<html>
 	<footer>
 		<table cellpadding="0" cellspacing="0" border="0"  align="center" width="90%" style="font-size:10.5px;color:#000">
 			<tr>
-				<td width="33%" valign="top" align="center" style="text-align:left">
-				<strong>CommerzBank-60311- Frankfurt Am Main</strong><br/>Konto Nr. : 3343357<br/>BLZ : 500 400 00<br/>IBAN : DE04 5004 0000 0334 3357 00<br/>SWIFT-BIC : COBADEFFXXX
+				<td width="33%" valign="top" align="center" style="text-align:left"><br/>Bank - Sparkasse Hanau.<br/>IBAN : DE 6050 6500 2300 0014 4089<br/>SWIFT-BIC : HELADEFIHAN
 				</td>
 				<td width="8%">&nbsp;</td>
 				<td width="29%" valign="top" align="center" style="text-align:left">

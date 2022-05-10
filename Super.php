@@ -30,7 +30,7 @@ class Invoice
             die('Error in query: ' . mysqli_error());
         }
         $data = array();
-        while ($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
+        while ($row = mysqli_fetch_array($result)) {
             $data[] = $row;
         }
         return $data;
@@ -61,30 +61,32 @@ class Invoice
 
     public function getlastinc($type, $date)
     {
-        $invoiceyear = date( 'Y', strtotime( $date ) );
+        $invoiceyear = date('Y', strtotime($date));
         $sqlQuery = 'SELECT max(invoice_id) as maxid FROM ' . $this->invoiceOrderTable . "
         WHERE datatype='" . $type . "' and year(order_date) = " . $invoiceyear;
-        $nextsql = current( $this->getData( $sqlQuery ) );
-        $curid = ( int ) $nextsql['maxid'];
-        $currentmonth = date( 'm' );
+        $nextsql = current($this->getData($sqlQuery));
+        $curid = (int) $nextsql['maxid'];
+        $currentmonth = date('m');
 
         //decide prefix first
-        if ( $currentmonth > 3 )
-        {
-            $prefix = date( 'Y' ) + 1;
-            $prefix = substr( $prefix, -2 );
+        //decide prefix first
+        if ($currentmonth > 3 && $currentmonth < 13) {
+            $prefix = date('Y') + 1;
+            $prefix = substr($prefix, -2);
+        } else if ($currentmonth < 4 && $currentmonth > 0) {
+            $prefix = date('Y');
+            $prefix = substr($prefix, -2);
         } else {
-            $prefix = substr( date( 'Y' ), -2 );
+            $prefix = substr(date('Y'), -2);
         }
 
         $previd = $prefix . '000'; //22000
-        
-        if($previd > $curid)
-        {
+
+        if ($previd > $curid) {
             $curid = $previd;
         }
 
-        $nextid = ( int ) $curid + 1;
+        $nextid = (int) $curid + 1;
 
         return $nextid;
     }
@@ -92,13 +94,13 @@ class Invoice
 
     public function saveInvoice($POST)
     {
-        $invoice_id = $this->getlastinc($POST['datatype'],$POST['order_date']);
+        $invoice_id = $this->getlastinc($POST['datatype'], $POST['order_date']);
 
         $newDate   =   date("Y-m-d", strtotime($POST['order_date']));
-        
+
         $sqlInsert = "
 			INSERT INTO " . $this->invoiceOrderTable . "(user_id, order_receiver_name, order_receiver_address, order_total_before_tax, order_total_tax, order_tax_per, order_total_after_tax, order_amount_paid, order_total_amount_due, reference, deliverynote, gst, statecode, email, mobile, datatype, declaration, order_date, termstrue, terms,enable_igst, enable_csgst, invoice_id, date_created)
-			VALUES ('" . $POST['userId'] . "', '" . addslashes($POST['companyName']) . "', '" . addslashes($POST['address']) . "', '" . (int) $POST['subTotal'] . "', '" . (int) $POST['taxAmount'] . "', '" . (int) $POST['taxRate'] . "', '" . $POST['totalAftertax'] . "', '" . $POST['amountPaid'] . "', '" . $POST['amountDue'] . "', '" . $POST['reference'] . "', '" . $POST['deliverynote'] . "', '" . $POST['gst'] . "', '" . $POST['statecode'] . "', '" . $POST['email'] . "', '" . $POST['mobile'] . "', '" . $POST['datatype'] . "' , '" . $POST['declaration'] . "', '" . $POST['order_date'] . "', ".(int)$POST['termstrue'].", '".addslashes($POST['terms'])."', ".(int)$POST['enable_igst']."  , ".(int)$POST['enable_csgst'].", ".$invoice_id.", '".date("Y-m-d H:i:s")."')";
+			VALUES ('" . $POST['userId'] . "', '" . addslashes($POST['companyName']) . "', '" . addslashes($POST['address']) . "', '" . (int) $POST['subTotal'] . "', '" . (int) $POST['taxAmount'] . "', '" . (int) $POST['taxRate'] . "', '" . $POST['totalAftertax'] . "', '" . $POST['amountPaid'] . "', '" . $POST['amountDue'] . "', '" . $POST['reference'] . "', '" . $POST['deliverynote'] . "', '" . $POST['gst'] . "', '" . $POST['statecode'] . "', '" . $POST['email'] . "', '" . $POST['mobile'] . "', '" . $POST['datatype'] . "' , '" . $POST['declaration'] . "', '" . $POST['order_date'] . "', " . (int)$POST['termstrue'] . ", '" . addslashes($POST['terms']) . "', " . (int)$POST['enable_igst'] . "  , " . (int)$POST['enable_csgst'] . ", " . $invoice_id . ", '" . date("Y-m-d H:i:s") . "')";
         if (mysqli_query($this->dbConnect, $sqlInsert)) {
             $lastInsertId = mysqli_insert_id($this->dbConnect);
             for ($i = 0; $i < count($POST['productCode']); $i++) {
@@ -106,17 +108,17 @@ class Invoice
 			INSERT INTO " . $this->invoiceOrderItemTable . "(order_id, item_code, item_name, order_item_quantity, order_item_price, order_item_final_amount,order_item_cgst, order_item_sgst, order_item_igst)
 			VALUES ('" . $lastInsertId . "', '" . $POST['productCode'][$i] . "', '" . addslashes($POST['productName'][$i]) . "', '" . $POST['quantity'][$i] . "', '" . $POST['price'][$i] . "', '" . $POST['total'][$i] . "', '" . $POST['cgst'][$i] . "', '" . $POST['sgst'][$i] . "', '" . $POST['igst'][$i] . "')";
                 mysqli_query($this->dbConnect, $sqlInsertItem);
-            } 
+            }
             return $lastInsertId;
         } else {
-            
-            return 'Error in query:'.$sqlInsert ;
+
+            return 'Error in query:' . $sqlInsert;
         }
     }
     public function updateInvoice($POST)
     {
         $newDate   =   date("Y-m-d", strtotime($POST['order_date']));
-    
+
         if ($POST['invoiceId']) {
             $sqlInsert = "
 				UPDATE " . $this->invoiceOrderTable . "
@@ -134,26 +136,20 @@ class Invoice
     public function getInvoiceList($type = '', $search = '', $getcount = false, $offset, $total_records_per_page)
     {
 
-       
-        if(!$getcount)
-        {
+
+        if (!$getcount) {
             $sqlQuery = "SELECT * FROM " . $this->invoiceOrderTable . "";
-
-        }
-        else
-        {
+        } else {
             $sqlQuery = "SELECT count(order_id) as `count` FROM " . $this->invoiceOrderTable . "";
-
         }
-        
+
         if ($type != "") {
             $sqlQuery .= " WHERE datatype='" . $type . "'";
         }
-       
+
         $sqlQuery .= ' ORDER BY `order_id` desc';
-        if(isset($offset) && isset($total_records_per_page))
-        {
-            $sqlQuery .= ' LIMIT '. (int)$offset .','. (int)$total_records_per_page;
+        if (isset($offset) && isset($total_records_per_page)) {
+            $sqlQuery .= ' LIMIT ' . (int)$offset . ',' . (int)$total_records_per_page;
         }
         return $this->getData($sqlQuery);
     }
@@ -165,7 +161,7 @@ class Invoice
 			SELECT * FROM " . $this->invoiceOrderTable . "
 			WHERE user_id = '" . $_SESSION['userid'] . "' AND order_id = '$invoiceId'";
         $result = mysqli_query($this->dbConnect, $sqlQuery);
-        $row = mysqli_fetch_array($result, MYSQL_ASSOC);
+        $row = mysqli_fetch_array($result);
         return $row;
     }
     public function getInvoiceItems($invoiceId)
@@ -211,11 +207,10 @@ function currencyformat($amount, $symbol = true)
         setlocale(LC_MONETARY, 'de_DE');
         $money = money_format('%!i', $amount);
         $removedecimal = str_replace('', '', $money);
-        return '&#8364; '.$removedecimal;
+        return '&#8364; ' . $removedecimal;
     } else {
         return (float) $amount;
     }
-
 }
 function inWords($number)
 {
@@ -232,7 +227,7 @@ function invoicenumber($num)
 
 function checkDateForm($date)
 {
-    if (preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$date)) {
+    if (preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $date)) {
         return true;
     } else {
         return false;

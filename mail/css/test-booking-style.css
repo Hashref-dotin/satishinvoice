@@ -1,0 +1,262 @@
+table.imagetable {
+
+	font-family: Arial, Helvetica, sans-serif;
+
+	font-size:12px;
+	text-align:center;
+
+	color:#333333;
+
+	border-width: 2px;
+
+	border-color: #eef2f2;
+
+	border-collapse: collapse;
+
+}
+
+table.imagetable th {
+
+	background:#72a316;
+
+	border-width: 1px;
+
+	padding: 7px;
+	font-weight:bold;
+
+	border-style: solid;
+
+	border-color: #eef2f2;
+
+	text-align: center;
+
+}
+
+table.imagetable td {
+
+	background:#c7d482;
+
+	background-color: #c7d482;
+
+	border-width: 2px;
+
+	font-size:12px;
+
+	line-height:20px;
+
+	padding: 5px 10px 5px 10px;
+
+	border-style: solid;
+
+	border-color: #eef2f2;
+
+
+
+}
+
+
+
+
+
+
+
+table.imagetable .odd td {
+
+	background:#eaf1dd;}
+
+
+
+
+.cal-test{
+
+width:630px;
+
+height:180px;
+
+margin:0 auto;
+
+}
+
+
+
+.date {
+
+width:65px;height:68px;-webkit-border-radius: 12px;-moz-border-radius: 12px;border-radius: 12px; background-color:#fff; box-shadow: 0px 2px 2px #888888; float:left; margin:7px;
+
+
+
+background: -webkit-gradient(linear, left top, left bottom, 
+
+color-stop(0%, white), color-stop(15%, white), color-stop(100%, #e9e9e9)); 
+
+background: -moz-linear-gradient(top, white 0%, white 55%, #D5E4F3 130%); 
+
+}
+
+.date-top {
+
+width:65px;height:20px;-webkit-border-radius:8px 8px 0px 0px;-moz-border-radius: 8px 8px 0px 0px;border-radius: 8px 8px 0px 0px;background-color:#7b7b7b; text-align:center; padding-top:0px;
+
+margin-bottom:5px;
+
+}
+
+.caltabs .active .date-top {
+
+background-color:#316c3e;
+
+}
+
+.num {
+
+color:#000; font-size:20px; text-align:center;
+
+}
+
+.test {
+
+color:#000; font-size:10px;
+
+}
+
+
+
+.content {
+
+width:520px;
+
+style:margin:0 auto;
+
+}
+
+
+
+#cal td {
+
+height:40px;
+
+text-align:center;
+
+vertical-align:middle;
+
+background-color:#e0dedf;
+
+font-size:16px
+
+}
+
+
+
+#bott td {
+
+font-size:12px;
+
+font-weight:bold
+
+}
+
+
+
+.cal {
+
+width:570px;
+
+height:180px;
+
+margin:0 auto;
+
+}
+
+
+
+.date {
+
+width:65px;height:68px;-webkit-border-radius: 12px;-moz-border-radius: 12px;border-radius: 12px; background-color:#fff; box-shadow: 0px 2px 2px #888888; float:left; margin:7px;
+
+
+
+background: -webkit-gradient(linear, left top, left bottom, 
+
+color-stop(0%, white), color-stop(15%, white), color-stop(100%, #e9e9e9)); 
+
+background: -moz-linear-gradient(top, white 0%, white 55%, #D5E4F3 130%); 
+
+}
+
+.date-top {
+
+width:65px;height:20px;-webkit-border-radius:8px 8px 0px 0px;-moz-border-radius: 8px 8px 0px 0px;border-radius: 8px 8px 0px 0px;background-color:#7b7b7b; text-align:center; padding-top:0px;
+
+margin-bottom:5px;
+
+}
+
+.caltabs .active .date-top {
+
+background-color:#316c3e;
+
+}
+
+.num {
+
+color:#000; font-size:20px; text-align:center;
+
+}
+
+.test {
+
+color:#000; font-size:10px;
+
+}
+
+
+
+.content {
+
+width:520px;
+
+style:margin:0 auto;
+
+}
+
+
+
+#cal td {
+
+height:40px;
+
+text-align:center;
+
+vertical-align:middle;
+
+background-color:#e0dedf;
+
+font-size:16px
+
+}
+
+
+
+#bott td {
+
+font-size:12px;
+
+font-weight:bold
+
+}
+ .caltabs .active .date-top {
+
+background-color:#316c3e;
+}
+.bh-con .bh-bt a{text-decoration:none; color:#ffffff;}
+.bh-con .bh-bt {
+    background: none repeat scroll 0 0 #779C05;
+    float: right;
+    height: 24px;
+	line-height:24px;
+    margin: 0 5px 0 0;
+    padding:0px;
+    text-align: center;
+    width: 118px;
+	border-radius:3px;
+}

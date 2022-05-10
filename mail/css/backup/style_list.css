@@ -1,0 +1,98 @@
+/* CSS Document */
+
+#navcontainer
+{
+	width:50%;
+	margin-left:17px;
+	height:20px;
+	
+}
+
+ul#navlist 
+{
+	
+	
+	font:12px Arial, Helvetica, sans-serif;
+}
+
+ul#navlist a
+{
+	text-decoration:none;
+}
+
+ul#navlist, ul#navlist ul, ul#navlist li
+{
+	margin: 0px;
+	padding: 0px;
+	list-style-type:none;
+	z-index:100001;
+
+}
+
+ul#navlist li 
+{ 
+	float: left;
+	border-left:1px solid #fff;
+
+}
+
+ul#navlist li a
+{
+	color:#ffffff;
+	line-height:20px;
+	height:20px;
+	overflow:hidden;
+	background:#016161;
+	display:block;
+	padding:0px 20px 0px 20px;
+	outline:none;
+}
+
+ul#navlist li a:hover
+{
+	color: #000;
+	background-color: #8dd3d3;
+		
+}
+
+ul#navlist li a.active
+{
+	color: #000;
+	background-color: #8dd3d3;
+}
+
+ul#subnavlist 
+{
+	display: none; 
+}
+
+ul#subnavlist li 
+{ 
+	float: none; 
+}
+
+ul#subnavlist li a
+{
+	padding: 0px;
+	margin: 0px;
+}
+
+ul#navlist li:hover ul#subnavlist
+{
+	display: block;
+	position: absolute;
+	font:12px Arial, Helvetica, sans-serif;
+}
+
+ul#navlist li:hover ul#subnavlist li a
+{
+	display: block;
+	line-height:20px;
+	height:20px;
+	margin:0px;
+	width:auto;
+	padding-left:5px;
+	padding-right:5px;
+}
+
+.clear{clear:both;}

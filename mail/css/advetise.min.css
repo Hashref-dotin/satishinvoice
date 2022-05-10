@@ -1,0 +1,22 @@
+body{margin:0px; padding:0px;}
+.advertiseUl{list-style:none; margin:10px auto 0px auto; padding:0px; width:962px;}
+.advertiseUl li{background:#ffffff; border:1px solid #e5e3e3; margin:0px 7px 0px 0px; padding:4px; float:left; width:224px; height:100px; position:relative; *display: inline;}
+.advertiseUl li a{
+position:absolute; 
+z-index:100; 
+display:block; 
+width:220px; 
+height:100px;
+}
+li.advertisment a{
+  background: none repeat scroll 0 0 red;
+    opacity: 0;
+	 -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=00)";
+	 filter: alpha(opacity=00);
+  -moz-opacity: 0.0;
+  -khtml-opacity: 0.0;
+}
+.advertiseUl li img{float:none;}
+.advertiseUl li:last-child{margin:0px;}
+img{border:0;}
+.advertiseUl li{margin:0px 6px 0px 0px\0/ !important;}

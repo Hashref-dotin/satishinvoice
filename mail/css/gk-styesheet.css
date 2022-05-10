@@ -1,0 +1,75 @@
+@charset "utf-8";
+/* CSS Document */
+body{ font:11px/21px Verdana, Arial, Helvetica, sans-serif;}
+ul,li{ text-align:left;}
+.clr{clear:both;}
+
+
+#gk_page_content{ float:left; padding:0 20px; margin-top:15px; margin-bottom:30px; margin-left:2px; width:940px;}
+#gk-left{ width:68%; float:left;}
+#gk-left p{float:left; text-align:justify; margin:0; line-height:19px;}
+
+
+#gk-right{ width:285px; float:right;}
+#gk-right ul{ margin:0; padding:0;}
+#gk-right ul li{ list-style:none; background:#e5e5df; margin-bottom:7px; height:30px; font:11px/30px Arial, Helvetica, sans-serif; padding:3px;}
+h2{ float:left; width:100%; text-align:left; margin:10px 0; font:bold 13px/18px Arial, Helvetica, sans-serif;}
+h3{color:#31849b; margin:0; float:left; font:bold 11px/15px Verdana, Arial, Helvetica, sans-serif;}
+
+
+.middlletable{
+	float: left;
+
+	margin:10px 0;
+}
+
+.canban1{ 
+	float:left;
+	width:211px;
+	height:170px;
+	
+	padding:10px 6px 4px 6px;
+	background:#ece4ba;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size:11px;
+	/*border:1px solid #dad1a4;*/
+	/*border-radius: 5px 5px 5px 5px / 5px 5px 5px 5px;*/
+}
+
+.canban1 ul{
+	margin:5px 0 0 0;
+	padding:0;
+}
+
+.canban1 ul li{
+	list-style:none;
+	
+}
+
+.canban1 ul li a{
+	font-size:11px;
+	margin:0 3px;
+	color:#333;
+}
+
+.canban2{ 
+	float:right;
+	width:228px;
+	text-align:left;
+	height:65px;
+	padding:10px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size:11px;
+	background:#ece4ba;
+
+	padding:10px 6px;
+	/*border:1px solid #dad1a4;*/
+}
+
+.canban3{ float:left;
+width:350px;
+height:100px;
+margin-left:30px;
+background:#ece4ba;
+border:1px solid #dad1a4;
+}

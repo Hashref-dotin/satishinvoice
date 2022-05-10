@@ -14,6 +14,9 @@
   <li class="nav-item <?php echo $satishcompanyabactive;?>">
     <a class="nav-link <?php echo $satishcompanyabactive;?>"  href="satish_list.php" aria-selected="false">Satish Engineering Company</a>
   </li>
+  <li class="nav-item <?php echo $prowincompanyabactive;?>">
+    <a class="nav-link <?php echo $prowincompanyabactive;?>"  href="prowin_list.php" aria-selected="false">Prowin Company</a>
+  </li>
 </ul>
 <div class="container" style="min-height:500px;">
 

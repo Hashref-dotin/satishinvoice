@@ -1,0 +1,58 @@
+@charset "utf-8";
+/* CSS Document */
+
+.main-menu
+{
+	position:absolute;
+	left:280px;
+	bottom:20px;
+}
+
+.main-menu ul
+{
+	margin:0;
+	padding:0;
+}
+
+.main-menu ul li
+{
+	list-style:none;
+	display:inline;
+	position:relative;
+}
+
+.main-menu ul li a
+{
+	color:#000;
+	text-decoration:none;
+	padding:0 10px;
+	display:inline-block;
+}
+
+.main-menu ul li a:hover
+{
+	color:#666;
+}
+
+.main-menu ul li:hover ul
+{
+	display:block;
+}
+
+.main-menu ul li ul
+{
+	display:none;
+	position:absolute;
+	top:15px;
+	left:0;
+	width:140px;
+	background:#f2f2f2;
+}
+
+.main-menu ul li ul li
+{
+	display:block;
+	line-height:30px;
+}
+
+

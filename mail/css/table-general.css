@@ -1,0 +1,81 @@
+/* general table style */
+
+table.general {
+	border-spacing: 0px; }
+.general th, .general td {
+	padding: 5px 48px 5px 10px;
+	border-spacing: 0px;
+	font-size: 90%;
+	line-height:15px;
+	margin: 0px;
+	}
+.general th, .general td {
+	text-align: left;
+	background-color:#d9d9d9;
+	border:solid #eef2f2 2px;
+	
+	}
+.general tr.head th {
+	color: #000;
+	background-color:#d9d9d9;
+	text-align: center;
+	font-weight:bold;
+	}
+
+
+table.general-2 {
+	border-spacing: 0px;}
+.general-2 th, .general-2 td {
+	padding: 5px 60px 5px 35px;
+	border-spacing: 0px;
+	font-size: 90%;
+	line-height:15px;
+	margin: 0px;
+	
+	
+	}
+.general-2 th, .general-2 td {
+	text-align: left;
+	border:2px solid #EEF2F2;
+	background-color: #bee6fa;	
+	
+	
+	
+	}
+.general-2 tr.head th {
+	color: #000;
+	background-color: #dfe1e1;	
+	text-align: center;
+	font-weight:bold;
+	
+	}
+	
+	
+	
+table.general-3 {
+	border-spacing: 0px; color:#000;}
+.general-3 th, .general-3 td {
+	padding: 5px 3px 5px 3px;
+	border-spacing: 0px;
+	font-size: 86%;
+	line-height:15px;
+	margin: 0px;
+	
+	}
+.general-3 th, .general-3 td {
+	text-align: left;
+	border-right:dashed #a3cde3 1px;
+	color:#000;
+	
+	
+	
+	}
+.general-3 tr.head th {
+	color: #000;
+	background-color: #dfe1e1;	
+	text-align: center;
+	font-weight:bold;
+	
+	}	
+	
+	

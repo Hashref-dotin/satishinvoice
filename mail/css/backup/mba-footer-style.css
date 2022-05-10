@@ -1,0 +1,6 @@
+body{margin:0px; padding:0px;}
+.footer{background:#313133; width:100%; height:auto; margin:0px; padding:10px 0px; overflow:hidden;}
+.footer-cont{width:1000px; margin:0px auto; padding:0px; overflow:hidden;}
+.be-ft-logo{width:170px; height:42px; margin:0px; padding:0px; float:left; overflow:hidden;}
+.cb-ft-logo{width:136px; height:30px; margin:0px; padding:0px; float:right; overflow:hidden;}
+.clear{clear:both;}

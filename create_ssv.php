@@ -165,7 +165,7 @@ if (!empty($errorMsg) && isset($_POST)) {
 3. All disputes subject to Bangalore Jurisdiction only.
 4. Goods once sold will not be taken back.
 5. The customer has seen the machine before buying. Any mistakes in machine description and details are reserve.
-Satish Engineering (seller) does not give any guarantee or takes any responsibility on used machines, it will be bought as where it is condition.';?>
+S.S.V. Engineering (seller) does not give any guarantee or takes any responsibility on used machines, it will be bought as where it is condition.';?>
 					<textarea class="form-control" rows="6" class="col-md-12"  name="declaration" id="declaration" placeholder="Declaration" required><?php echo !empty($_POST['declaration']) ? $_POST['declaration'] : $declaration; ?></textarea>
 					</div>
 				</div>

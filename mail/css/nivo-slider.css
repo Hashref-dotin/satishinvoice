@@ -1,0 +1,93 @@
+#slider-wrapper {
+
+height:120px;
+overflow:hidden;
+position:relative;
+}
+.nivoSlider {
+height:120px;
+margin:0 auto;
+position:relative;
+width:212px;
+}
+.nivoSlider img {
+left:0;
+position:absolute;
+top:0;
+}
+.nivo-slice {
+display:block;
+height:100%;
+position:absolute;
+z-index:50;
+}
+.nivo-box {
+display:block;
+position:absolute;
+z-index:5;
+}
+.nivo-caption {
+
+background:transparent;
+position:absolute;
+top:230px;
+width:100%;
+z-index:90;
+}
+.nivo-caption h5 {
+color:#012e12;
+font-size:18px;
+
+line-height:.8em;
+font-family:Arial, Helvetica, sans-serif;
+margin:0;
+text-align:left;
+padding:8px 35px 0;
+}
+.nivo-caption > p {
+margin:0;
+padding:0px;
+}
+.nivo-caption p p {
+color:#000;
+font-family:Arial, Helvetica, sans-serif;
+font-weight:400;
+font-size:12px;
+line-height:0px;
+margin:0;
+
+margin-left:15px;
+}
+.nivo-html-caption {
+display:none;
+}
+.nivo-controlNav {
+bottom:8px;
+height:5px;
+left:0;
+position:absolute;
+text-align:left;
+width:212px;
+padding-right:45px;
+
+}
+.nivo-controlNav a {
+background:#000000;
+cursor:pointer;
+display:inline-block !important;
+font-size:0;
+height:10px;
+line-height:0;
+margin:0 2px 0 4px;
+overflow:hidden;
+position:relative;
+text-decoration:none;
+vertical-align:top;
+width:5px;
+z-index:99;
+
+}
+.nivo-controlNav a:hover,.nivo-controlNav a.active {
+background:#ff0000;
+color:#c24050;
+}

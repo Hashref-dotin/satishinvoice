@@ -1,0 +1,31 @@
+/* column styles */
+
+.column-styles {
+	font-family:Arial, Helvetica, sans-serif;
+
+	color:#333;
+	border-collapse: collapse;}
+
+.column-styles .standard {
+	background-color:#eaeaea;}
+
+.column-styles .featured {
+	background-color:#eaeaea;}
+
+.column-styles th, .column-styles td {
+	background-color:#eaeaea;
+	
+	
+	text-align:center;}
+
+.column-styles th {
+	font-weight:normal;
+	font-size:120%;
+	color:#000;
+	
+	padding: 5px;
+	width:160px;}
+
+.column-styles td {
+	padding: 12px 8px 12px 8px;
+	font-size:80%;}

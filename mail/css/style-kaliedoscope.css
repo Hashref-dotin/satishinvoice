@@ -1,0 +1,387 @@
+@charset "utf-8";
+/* CSS Document */
+
+body
+{
+	margin:0;
+	background:#000000;
+	font:11px/22px Verdana, Geneva, sans-serif;
+}
+
+p { margin: 10px 0;}
+img { display:block; border:0; }
+
+#page
+{
+	width:1000px;
+	margin:10px auto;
+	background:#fff;
+	height:auto;
+	overflow:hidden;
+	border-radius: 5px;
+}
+
+.container
+{
+	width:920px;
+	margin:0 auto;
+}
+
+#header
+{
+	height:170px;
+	position:relative;
+}
+
+#header #logo
+{
+	width:150px;
+	height:125px;
+	position:absolute;
+	top:40px;
+	left:0;
+}
+
+#header #name
+{
+	font:18px Arial, Helvetica, sans-serif;
+	position:absolute;
+	top:72px;
+	left:163px;
+	letter-spacing:-0.5px;
+}
+
+#header #name span.mba
+{
+	font-family:"Arial Black", Gadget, sans-serif;
+	font-size:22px;
+	color:#ff2e27;
+}
+
+#header #name span.year
+{
+	color:#ff2e27;
+}
+
+.navigation
+{
+	position:absolute;
+	height:35px;
+	width:755px;
+	background:url(../images/nav-bg.png) repeat-x;
+	right:0;
+	top:112px;
+}
+
+.navigation .nav-left
+{
+	width:6px;
+	height:35px;
+	background:url(../images/nav-left.png) no-repeat;
+	float:left;
+}
+
+.navigation .nav-right
+{
+	width:6px;
+	height:35px;
+	background:url(../images/nav-right.png) no-repeat;
+	float:right;
+}
+
+.navigation .main-menu
+{
+	height:35px;
+	width:743px;
+	float:left;
+}
+
+.navigation .main-menu ul
+{
+	margin:0;
+	padding:0;
+}
+
+.navigation .main-menu ul li
+{
+	list-style:none;
+	display:inline;
+}
+
+.navigation .main-menu ul li a
+{
+	display:block;
+	float:left;
+	color:#fff;
+	height:35px;
+	line-height:35px;
+	text-decoration:none;
+	padding:0 34px;
+	background:url(../images/nav-divider.png) no-repeat right;
+}
+
+.navigation .main-menu ul li.current a,
+.navigation .main-menu ul li a:hover
+{
+	background:url(../images/nav-hover.png);
+}
+
+.navigation .main-menu ul li.last a
+{
+	background:none;
+}
+
+.navigation .main-menu ul li.last a:hover
+{
+	background:url(../images/nav-hover.png) !important;
+}
+
+#main
+{
+	height:auto;
+	overflow:hidden;
+	margin:20px 0;
+}
+
+.home
+{
+	background:#ebe9e4;
+	border:solid 1px #ebe6e6;
+	height:auto;
+	overflow:hidden;
+	padding:15px;
+}
+
+.home .col1
+{
+	width:500px;
+	float:left;
+	text-align:justify;
+}
+
+.home .col2
+{
+	width:340px;
+	float:right;
+	padding-top:55px;
+	padding-right:16px;
+}
+
+h1
+{
+	font:20px/40px Arial, Helvetica, sans-serif;
+	color:#666;
+	margin:0;
+	letter-spacing:-1px;
+}
+
+.part-colleges
+{
+	background:#ebe9e4;
+	border:solid 1px #cecdcd;
+	width:100%;
+	height:auto;
+	margin:50px 0 15px 0;
+	border-radius: 0px;
+	padding-bottom:20px;
+}
+
+.part-colleges .title
+{
+	margin:-20px auto 20px auto;
+	text-align:center;
+}
+
+.part-colleges .title img
+{
+	margin:0px auto;
+}
+
+.part-colleges .logo-row
+{
+	height:auto;
+	overflow:hidden;
+	padding-left:24px;
+	margin-bottom:10px;
+}
+
+.part-colleges .logo-row .logo-block
+{
+	width:130px;
+	float:left;
+	margin-right:18px;
+	display:inline;
+}
+
+.part-colleges .logo-row .logo-block .inst-name
+{
+	font:10px/12px Arial, Helvetica, sans-serif;
+	text-align:center;
+	padding-bottom:5px;
+}
+
+.part-colleges .logo-row .logo-block .logo-holder
+{
+	background:#fff;
+	padding-bottom:5px;
+	padding-top:5px;
+	position:relative;
+}
+
+.part-colleges .logo-row .logo-block .logo-holder .strip
+{
+	background:#fde9d9;
+	font:9px/15px Arial, Helvetica, sans-serif;
+	text-align:center;
+	width:90%;
+	margin:0px auto;
+}
+
+.part-colleges .logo-row .logo-block a
+{
+	text-decoration:none;
+	color:#000;
+}
+
+.register-now 
+{
+	display:block;
+	margin:0px auto;
+	width:205px; height:38px;
+}
+
+.register-now img
+{
+	margin:0px auto;
+}
+
+.copyrights
+{
+	margin:15px 0;
+	text-align:center;
+	font-size:10px;
+	color:#666;
+}
+
+.sidebar
+{
+	width:150px;
+	float:left;
+}
+
+.right
+{
+	width:750px;
+	float:right;
+}
+
+.college-info
+{
+	font-size:14px;
+}
+
+.college-info-blocks
+{
+	background:#fff;
+	border-radius: 10px;
+	height:auto;
+	overflow:hidden;
+	margin-bottom:20px;
+	padding:15px;
+}
+
+h2
+{
+	font:18px/40px Arial, Helvetica, sans-serif;
+	color:#666;
+	margin:0;
+	letter-spacing:-1px;
+	text-transform:uppercase;
+}
+
+table.gdpi{
+	border-left:solid 1px #dc9e9d;
+	border-right:solid 1px #dc9e9d;
+	font-size:9px;
+}
+
+table.gdpi strong {
+	font-size:10px;
+}
+
+table.gdpi a {
+	color:#7b0506;
+	text-decoration:none;
+}
+
+table.gdpi th
+{
+	background:#c0504d;
+	color:#fff;
+}
+
+table.gdpi td
+{
+	background:#efd3d2;
+	border-bottom:solid 1px #dc9e9d;
+}
+
+table.gdpi tr.even td
+{
+	background:#fff;
+}
+
+.login-box
+{
+	position:absolute;
+	top:30px;
+	right:0;
+	width:200px;
+}
+
+.login-box input
+{
+	position:absolute;
+	border:solid 1px #cecece;
+	height:18px;
+	line-height:18px;
+	width:198px;
+	background:#fefefe;
+	font-size:10px;
+}
+
+.login-box input.username
+{
+	top:0;
+}
+
+.login-box input.password
+{
+	top:25px;
+}
+
+.login-box input.login
+{
+	width:45px;
+	height:20px;
+	background:url(../images/login.png) no-repeat;
+	border:0;
+	cursor:pointer;
+	position:absolute;
+	top:52px;
+	right:0;
+}
+
+.login-box  .forget-password
+{
+	position:relative;
+	top:50px;
+	left:0;
+	font-size:9px;
+}
+
+.login-box  .forget-password a
+{
+	color:#666;
+	text-decoration:none;
+}

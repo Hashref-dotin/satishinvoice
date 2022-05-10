@@ -1,0 +1,23 @@
+/*
+Popup Contact Form by html-form-guide.com
+You can customize all the aspects of the form in this style sheet
+All the style elements use form id selector(notice the #contactus). So, including this
+stylesheet does not affect the other elements at all!
+*/
+
+#fg_formContainer
+{
+   height:650px;
+   width:950px;
+   background:#FFFFFF;
+   border:3px solid #00ffff;
+   padding:0;
+   position:absolute;
+   z-index:1000;
+   cursor:default;   
+   margin:0 20px;   
+   overflow-y:hidden;
+   overflow-x:hidden;
+   left:-80px;
+   top:30px;
+}

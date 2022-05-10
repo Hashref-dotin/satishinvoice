@@ -30,7 +30,7 @@ class Invoice
             die('Error in query: ' . mysqli_error());
         }
         $data = array();
-        while ($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
+        while ($row = mysqli_fetch_array($result)) {
             $data[] = $row;
         }
         return $data;
@@ -61,21 +61,24 @@ class Invoice
 
     public function getlastinc($type, $date)
     {
-        $invoiceyear = date( 'Y', strtotime( $date ) );
+        $invoiceyear = date( 'Y' );
         $sqlQuery = 'SELECT max(invoice_id) as maxid FROM ' . $this->invoiceOrderTable . "
-        WHERE datatype='" . $type . "' and year(order_date) = " . $invoiceyear;
+        WHERE datatype='" . $type . "'";
         $nextsql = current( $this->getData( $sqlQuery ) );
         $curid = ( int ) $nextsql['maxid'];
         $currentmonth = date( 'm' );
 
-        //decide prefix first
-        if ( $currentmonth > 3 )
-        {
-            $prefix = date( 'Y' ) + 1;
-            $prefix = substr( $prefix, -2 );
+         //decide prefix first
+         if ($currentmonth > 3 && $currentmonth < 13) {
+            $prefix = date('Y') + 1;
+            $prefix = substr($prefix, -2);
+        } else if ($currentmonth < 4 && $currentmonth > 0) {
+            $prefix = date('Y');
+            $prefix = substr($prefix, -2);
         } else {
-            $prefix = substr( date( 'Y' ), -2 );
+            $prefix = substr(date('Y'), -2);
         }
+
 
         $previd = $prefix . '000'; //22000
         
@@ -165,7 +168,7 @@ class Invoice
 			SELECT * FROM " . $this->invoiceOrderTable . "
 			WHERE user_id = '" . $_SESSION['userid'] . "' AND order_id = '$invoiceId'";
         $result = mysqli_query($this->dbConnect, $sqlQuery);
-        $row = mysqli_fetch_array($result, MYSQL_ASSOC);
+        $row = mysqli_fetch_array($result);
         return $row;
     }
     public function getInvoiceItems($invoiceId)
@@ -225,7 +228,7 @@ function inWords($number)
     $words = array(
         '0' => '', '1' => 'one', '2' => 'two', '3' => 'three', '4' => 'four', '5' => 'five',
         '6' => 'six', '7' => 'seven', '8' => 'eight', '9' => 'nine', '10' => 'ten',
-        '11' => 'eleven', '12' => 'twelve', '13' => 'thirteen', '14' => 'fouteen', '15' => 'fifteen',
+        '11' => 'eleven', '12' => 'twelve', '13' => 'thirteen', '14' => 'fourteen', '15' => 'fifteen',
         '16' => 'sixteen', '17' => 'seventeen', '18' => 'eighteen', '19' => 'nineteen', '20' => 'twenty',
         '30' => 'thirty', '40' => 'fourty', '50' => 'fifty', '60' => 'sixty', '70' => 'seventy',
         '80' => 'eighty', '90' => 'ninty');

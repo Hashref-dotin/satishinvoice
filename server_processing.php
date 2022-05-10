@@ -52,6 +52,7 @@ $columns = array(
                 'satish_invoice_order' => 'print_satish.php',
                 'ssv_invoice_order' => 'print_ssv.php',
                 'super_invoice_order' => 'print_super.php',
+                'prowin_invoice_order' => 'print_prowin.php',
             );
             return '<a href="' . $printpage[$_GET['tablename']] . '?invoice_id=' . $d . '" target="_blank" title="Print Invoice"><span class="glyphicon glyphicon-print"></span></a>';
         },
@@ -65,6 +66,7 @@ $columns = array(
                 'satish_invoice_order' => 'print_satish.php',
                 'ssv_invoice_order' => 'print_ssv.php',
                 'super_invoice_order' => 'print_super.php',
+                'prowin_invoice_order' => 'print_prowin.php',
             );
             return '<a href="' . $printpage[$_GET['tablename']] . '?invoice_id=' . $d . '&download=1" target="_blank" title="Print Invoice"><span class="glyphicon glyphicon-download"></span></a>';
         },
@@ -78,7 +80,9 @@ $columns = array(
                 'invoice_order' => 'edit_invoice.php',
                 'satish_invoice_order' => 'edit_satish.php',
                 'ssv_invoice_order' => 'edit_ssv.php',
-                'super_invoice_order' => 'edit_super.php');
+                'super_invoice_order' => 'edit_super.php',
+                'prowin_invoice_order' => 'edit_prowin.php',
+            );
 
             return '<a href="' . $editpage[$_GET['tablename']] . '?update_id=' . $d . '" target="_blank" title="Edit Invoice"><span class="glyphicon glyphicon-edit"></span></a>';
         },
@@ -92,7 +96,9 @@ $columns = array(
                 'invoice_order' => 'deleteInvoice',
                 'satish_invoice_order' => 'deleteSatish',
                 'ssv_invoice_order' => 'deleteSsv',
-                'super_invoice_order' => 'deleteSuper');
+                'super_invoice_order' => 'deleteSuper',
+                'prowin_invoice_order' => 'deleteSuper'
+            );
             return '<a href="#" id="' . $d . '" class="' . $deletepage[$_GET['tablename']] . '"  title="Delete Invoice"><span class="glyphicon glyphicon-remove"></span></a>';
         },
     ),
